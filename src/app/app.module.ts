@@ -14,10 +14,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { AppComponent } from './app.component';
+import { VariableComponent } from './variable/variable.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    VariableComponent
   ],
   imports: [
     BrowserModule,
