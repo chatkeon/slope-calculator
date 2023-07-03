@@ -1,0 +1,41 @@
+.variable-container {
+  display: block;
+  padding: 16px;
+}
+
+.flex-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.variable-form-field {
+  flex: 1 0 auto;
+}
+
+.variable-input {
+
+}
+
+.lock-indicator {
+  flex: 0 0 auto;
+}
+
+.lock-icon {
+  margin-left: 8px;
+}
+
+.lock-icon.locked {
+  opacity: 0.3;
+}
+
+.slider-container {
+  display: block;
+  width: 100%;
+  padding: 0 8px;
+}
+
+.variable-slider {
+  width: calc(100% - 32px);
+}

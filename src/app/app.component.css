@@ -15,64 +15,35 @@
 
 #main > .card {
   margin: 0 auto 32px;
-  width: 80%;
-  max-width: 1000px;
 }
 
-.card-header {
-  font-size: 24px;
-  font-weight: bold;
+#lock-buttons-container {
+  display: block;
   padding: 16px;
-  height: 48px;
+  white-space: nowrap;
+}
+
+#lock-text {
+  display: inline-block;
+  margin-right: 16px;
+}
+
+#inputs-container {
   display: flex;
-  align-items: center;
+  width: 100%;
   flex-wrap: nowrap;
 }
 
-.card-header > span {
-  flex: 1 0 auto;
+#inputs-container app-variable {
+  flex: 1 0 25%;
 }
 
-.card-content {
-  padding: 16px;
-}
-
-#instructions-text {
-  margin-bottom: 32px;
-}
-
-#verses-form-field {
-  display: block;
-  width: 100%;
-}
-
-#verses-form-field textarea {
-  min-height: 80px;
-  max-height: 500px;
-}
-
-#options-list {
-  display: block;
-  margin-bottom: 32px;
-}
-
-#options-list > .options-checkbox {
-  display: block;
-}
-
-#copy-button {
-  margin-top: 0px;
-  margin-right: -4px;
-  flex: 0 0 auto;
-}
-
-#no-results-text {
+.chart-cell {
   text-align: center;
-  padding: 32px;
 }
 
-#results-text {
-  white-space: break-spaces;
+#drawing-container {
+  text-align: center;
 }
 
 footer {
@@ -86,21 +57,5 @@ footer {
   #main > .card {
     width: 100%;
     max-width: auto;
-  }
-
-  #text-input, #image-input, #isbn-form-field, #image-input .instruction-text {
-    display: block;
-  }
-
-  #lookup-button {
-    display: block;
-    margin-left: 0;
-    margin-bottom: 0;
-  }
-
-  #upload-button {
-    display: block;
-    margin-top: 8px;
-    margin-left: 0;
   }
 }

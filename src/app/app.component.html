@@ -4,7 +4,61 @@
 
 <div id="main">
   <mat-card class="card">
-    Placeholder
+    <div id="lock-buttons-container">
+      <p id="lock-text">Choose which variable to lock:</p>
+      <mat-button-toggle-group id="lock-buttons" [(ngModel)]="lockedVariable">
+        <mat-button-toggle value="height">Height (Y)</mat-button-toggle>
+        <mat-button-toggle value="length">Length (X)</mat-button-toggle>
+        <mat-button-toggle value="slope">Slope (%)</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+
+    <div id="inputs-container">
+      <app-variable id="height-input" label="Height (Y)"
+                    [value]="height" (valueChange)="updateHeight($event)"
+                    [max]="100" [min]="0" [step]="0.0001"
+                    [locked]="lockedVariable === 'height'">
+      </app-variable>
+
+      <app-variable id="length-input" label="Length (X)"
+                    [value]="length" (valueChange)="updateLength($event)"
+                    [max]="100" [min]="0" [step]="0.0001"
+                    [locked]="lockedVariable === 'length'">
+      </app-variable>
+
+      <app-variable id="slope-input" label="Slope (%)"
+                    [value]="slope" (valueChange)="updateSlope($event)"
+                    [max]="5" [min]="0" [step]="0.0001"
+                    [locked]="lockedVariable === 'slope'">
+      </app-variable>
+    </div>
+
+    <div id="chart-container" *ngIf="chartRows.length > 0">
+      <table mat-table id="chart-table" [dataSource]="chartRows">
+
+        <ng-container matColumnDef="height">
+          <th mat-header-cell *matHeaderCellDef class="chart-cell"> Height (Y) </th>
+          <td mat-cell *matCellDef="let item" class="chart-cell"> {{ item.height | number:'1.0-4' }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="length">
+          <th mat-header-cell *matHeaderCellDef class="chart-cell"> Length (X) </th>
+          <td mat-cell *matCellDef="let item" class="chart-cell"> {{ item.length | number:'1.0-4' }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="slope">
+          <th mat-header-cell *matHeaderCellDef class="chart-cell"> Slope (%) </th>
+          <td mat-cell *matCellDef="let item" class="chart-cell"> {{ (item.slope * 100) | number:'1.0-4' }} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns" class="chart-header-row"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="chart-row"></tr>
+      </table>
+    </div>
+
+    <!--<div id="drawing-container">-->
+      <!--<canvas #canvas width="500" height="300"></canvas>-->
+    <!--</div>-->
   </mat-card>
 </div>
 
