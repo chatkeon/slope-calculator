@@ -15,6 +15,7 @@ export class VariableComponent {
   @Input() locked!: boolean;
 
   @Output() valueChange = new EventEmitter<number>();
+  @Output() requestLock = new EventEmitter<boolean>();
 
   constructor() {
 
@@ -22,5 +23,11 @@ export class VariableComponent {
 
   updateValue(newValue: number) {
     this.valueChange.emit(newValue);
+  }
+
+  lock() {
+    if (!this.locked) {
+      this.requestLock.emit(true);
+    }
   }
 }

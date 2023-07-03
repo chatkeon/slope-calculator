@@ -71,6 +71,12 @@ export class AppComponent implements OnInit {
     this.draw();
   }
 
+  lock(variable: string) {
+    if (variable !== this.lockedVariable) {
+      this.lockedVariable = variable;
+    }
+  }
+
   private getActualSlope() {
     return this.slope / 100;
   }
@@ -95,7 +101,7 @@ export class AppComponent implements OnInit {
       slope: this.getActualSlope()
     });
 
-    let rowStep = (variable === 'slope') ? 0.0001 : 0.01;
+    let rowStep = (variable === 'slope') ? 0.005 : 0.01;
     if (variable === 'height') {
       let variableHeight = this.height - rowStep;
       for (let i = 0; i < 5; i++) {
@@ -120,13 +126,13 @@ export class AppComponent implements OnInit {
       variableHeight = this.height + rowStep;
       for (let i = 0; i < 5; i++) {
         if (this.lockedVariable === 'length') {
-          this.chartRows.unshift({
+          this.chartRows.push({
             height: variableHeight,
             length: this.length,
             slope: this.calculateSlope(variableHeight, this.length)
           });
         } else {
-          this.chartRows.unshift({
+          this.chartRows.push({
             height: variableHeight,
             length: this.calculateLength(variableHeight, this.getActualSlope()),
             slope: this.getActualSlope()
@@ -158,13 +164,13 @@ export class AppComponent implements OnInit {
       variableLength = this.length + rowStep;
       for (let i = 0; i < 5; i++) {
         if (this.lockedVariable === 'height') {
-          this.chartRows.unshift({
+          this.chartRows.push({
             height: this.height,
             length: variableLength,
             slope: this.calculateSlope(this.height, variableLength)
           });
         } else {
-          this.chartRows.unshift({
+          this.chartRows.push({
             height: this.calculateHeight(variableLength, this.getActualSlope()),
             length: variableLength,
             slope: this.getActualSlope()
@@ -196,13 +202,13 @@ export class AppComponent implements OnInit {
       variableSlope = this.getActualSlope() + rowStep;
       for (let i = 0; i < 5; i++) {
         if (this.lockedVariable === 'height') {
-          this.chartRows.unshift({
+          this.chartRows.push({
             height: this.height,
             length: this.calculateLength(this.height, variableSlope),
             slope: variableSlope
           });
         } else {
-          this.chartRows.unshift({
+          this.chartRows.push({
             height: this.calculateHeight(this.length, variableSlope),
             length: this.length,
             slope: variableSlope

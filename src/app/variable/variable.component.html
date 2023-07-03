@@ -1,16 +1,13 @@
 <div id="{{ id }}" class="variable-container">
-  <div class="flex-container">
-    <mat-form-field class="variable-form-field">
-      <mat-label>{{ label }}</mat-label>
-      <input matInput class="variable-input"
-             [ngModel]="value"
-             (ngModelChange)="updateValue($event)"
-             [disabled]="locked" />
-    </mat-form-field>
-    <div class="lock-indicator">
-      <mat-icon class="lock-icon" [ngClass]="{ locked: locked }">{{ locked ? 'lock' : 'lock_open' }}</mat-icon>
-    </div>
-  </div>
+  <mat-form-field class="variable-form-field">
+    <mat-label>{{ label }}</mat-label>
+    <input matInput class="variable-input"
+           [ngModel]="value"
+           (ngModelChange)="updateValue($event)"
+           [disabled]="locked" />
+    <mat-icon matSuffix class="lock-icon"
+              [ngClass]="{ locked: locked }" (click)="lock()">{{ locked ? 'lock' : 'lock_open' }}</mat-icon>
+  </mat-form-field>
   <div class="slider-container">
     <mat-slider class="variable-slider"
       [disabled]="locked"

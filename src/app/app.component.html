@@ -16,20 +16,23 @@
     <div id="inputs-container">
       <app-variable id="height-input" label="Height (Y)"
                     [value]="height" (valueChange)="updateHeight($event)"
-                    [max]="100" [min]="0" [step]="0.0001"
-                    [locked]="lockedVariable === 'height'">
+                    [max]="100" [min]="0" [step]="0.01"
+                    [locked]="lockedVariable === 'height'"
+                    (requestLock)="lock('height')">
       </app-variable>
 
       <app-variable id="length-input" label="Length (X)"
                     [value]="length" (valueChange)="updateLength($event)"
-                    [max]="100" [min]="0" [step]="0.0001"
-                    [locked]="lockedVariable === 'length'">
+                    [max]="100" [min]="0" [step]="0.01"
+                    [locked]="lockedVariable === 'length'"
+                    (requestLock)="lock('length')">
       </app-variable>
 
       <app-variable id="slope-input" label="Slope (%)"
                     [value]="slope" (valueChange)="updateSlope($event)"
                     [max]="5" [min]="0" [step]="0.0001"
-                    [locked]="lockedVariable === 'slope'">
+                    [locked]="lockedVariable === 'slope'"
+                    (requestLock)="lock('slope')">
       </app-variable>
     </div>
 

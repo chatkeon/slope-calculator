@@ -3,31 +3,22 @@
   padding: 16px;
 }
 
-.flex-container {
-  width: 100%;
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-}
-
 .variable-form-field {
-  flex: 1 0 auto;
-}
-
-.variable-input {
-
-}
-
-.lock-indicator {
-  flex: 0 0 auto;
+  display: block;
+  width: 100%;
 }
 
 .lock-icon {
-  margin-left: 8px;
+  cursor: pointer;
+}
+
+.lock-icon:hover {
+  opacity: 0.5;
 }
 
 .lock-icon.locked {
   opacity: 0.3;
+  pointer-events: none;
 }
 
 .slider-container {
