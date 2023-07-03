@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 declare interface ChartRow {
-  height: number;
-  length: number;
+  y1: number;
+  y2: number;
+  x: number;
   slope: number;
 }
 
@@ -12,13 +13,19 @@ declare interface ChartRow {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  currentYear = '';
-  lockedVariable = 'slope';
-  height = 0.05;
-  length = 5.0;
-  slope = 1.0;
+  defaultMinSlope = 0.5;
+  defaultMaxSlope = 5;
+  useY2 = false;
 
-  displayedColumns: string[] = ['height', 'length', 'slope'];
+  currentYear = '';
+  lastEdited = 'y';
+  y1 = 0.5;
+  y2 = 0.0;
+  x = 100.0;
+  minSlope = 0.5;
+  maxSlope = 2.0;
+
+  displayedColumns: string[] = ['y1', 'x', 'slope'];
   chartRows: ChartRow[] = [];
 
   // @ViewChild('canvas', { static: true }) canvas!: ElementRef<HTMLCanvasElement>;
@@ -31,54 +38,63 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     // this.ctx = this.canvas.nativeElement.getContext('2d') as CanvasRenderingContext2D;
 
-    this.calculateChartRows('height');
+    this.calculateChartRows();
     this.draw();
   }
 
-  updateHeight(newValue: number) {
-    this.height = newValue;
-    if (this.lockedVariable === 'length') {
-      this.slope = this.calculateSlope(this.height, this.length) * 100;
+  toggleY2(event: any) {
+    this.useY2 = !this.useY2;
+    if (this.useY2) {
+      this.displayedColumns = ['y1', 'y2', 'x', 'slope'];
     } else {
-      this.length = this.calculateLength(this.height, this.getActualSlope());
+      this.displayedColumns = ['y1', 'x', 'slope'];
     }
 
-    this.calculateChartRows('height');
+    this.calculateChartRows();
+
+    // Keep the settings menu open
+    event.stopPropagation();
+  }
+
+  updateY1(newValue: number) {
+    this.y1 = newValue;
+    this.lastEdited = 'y';
+    this.calculateChartRows();
     this.draw();
   }
 
-  updateLength(newValue: number) {
-    this.length = newValue;
-    if (this.lockedVariable === 'height') {
-      this.slope = this.calculateSlope(this.height, this.length) * 100;
-    } else {
-      this.height = this.calculateHeight(this.getActualSlope(), this.length);
-    }
-
-    this.calculateChartRows('length');
+  updateY2(newValue: number) {
+    this.y2 = newValue;
+    this.lastEdited = 'y';
+    this.calculateChartRows();
     this.draw();
   }
 
-  updateSlope(newValue: number) {
-    this.slope = newValue;
-    if (this.lockedVariable === 'height') {
-      this.length = this.calculateLength(this.height, this.getActualSlope());
-    } else {
-      this.height = this.calculateHeight(this.getActualSlope(), this.length);
-    }
-
-    this.calculateChartRows('slope');
+  updateX(newValue: number) {
+    this.x = newValue;
+    this.lastEdited = 'x';
+    this.calculateChartRows();
     this.draw();
   }
 
-  lock(variable: string) {
-    if (variable !== this.lockedVariable) {
-      this.lockedVariable = variable;
+  updateMinSlope(newValue: number) {
+    if (newValue < this.defaultMinSlope) {
+      newValue = this.defaultMinSlope;
     }
+
+    this.minSlope = newValue;
+    this.calculateChartRows();
+    this.draw();
   }
 
-  private getActualSlope() {
-    return this.slope / 100;
+  updateMaxSlope(newValue: number) {
+    if (newValue > this.defaultMaxSlope) {
+      newValue = this.defaultMaxSlope;
+    }
+
+    this.maxSlope = newValue;
+    this.calculateChartRows();
+    this.draw();
   }
 
   private calculateHeight(slope: number, length: number): number {
@@ -93,129 +109,47 @@ export class AppComponent implements OnInit {
     return height / length;
   }
 
-  private calculateChartRows(variable: string) {
+  private calculateChartRows() {
     this.chartRows = [];
-    this.chartRows.push({
-      height: this.height,
-      length: this.length,
-      slope: this.getActualSlope()
-    });
-
-    let rowStep = (variable === 'slope') ? 0.005 : 0.01;
-    if (variable === 'height') {
-      let variableHeight = this.height - rowStep;
-      for (let i = 0; i < 5; i++) {
-        if (variableHeight < 0) {
-          break;
-        }
-        if (this.lockedVariable === 'length') {
-          this.chartRows.unshift({
-            height: variableHeight,
-            length: this.length,
-            slope: this.calculateSlope(variableHeight, this.length)
-          });
-        } else {
-          this.chartRows.unshift({
-            height: variableHeight,
-            length: this.calculateLength(variableHeight, this.getActualSlope()),
-            slope: this.getActualSlope()
-          });
-        }
-        variableHeight = variableHeight - rowStep;
-      }
-      variableHeight = this.height + rowStep;
-      for (let i = 0; i < 5; i++) {
-        if (this.lockedVariable === 'length') {
+    let variableSlope = this.minSlope;
+    let actualSlope;
+    while (variableSlope <= this.maxSlope) {
+      actualSlope = variableSlope / 100;
+      if (this.lastEdited === 'x') {
+        const y = this.calculateHeight(this.x, actualSlope);
+        if (this.useY2) {
           this.chartRows.push({
-            height: variableHeight,
-            length: this.length,
-            slope: this.calculateSlope(variableHeight, this.length)
+            y1: this.y1,
+            y2: (y - this.y1),
+            x: this.x,
+            slope: actualSlope
           });
         } else {
           this.chartRows.push({
-            height: variableHeight,
-            length: this.calculateLength(variableHeight, this.getActualSlope()),
-            slope: this.getActualSlope()
+            y1: y,
+            y2: 0,
+            x: this.x,
+            slope: actualSlope
           });
         }
-        variableHeight = variableHeight + rowStep;
-      }
-    } else if (variable === 'length') {
-      let variableLength = this.length - rowStep;
-      for (let i = 0; i < 5; i++) {
-        if (variableLength < 0) {
-          break;
-        }
-        if (this.lockedVariable === 'height') {
-          this.chartRows.unshift({
-            height: this.height,
-            length: variableLength,
-            slope: this.calculateSlope(this.height, variableLength)
-          });
-        } else {
-          this.chartRows.unshift({
-            height: this.calculateHeight(variableLength, this.getActualSlope()),
-            length: variableLength,
-            slope: this.getActualSlope()
-          });
-        }
-        variableLength = variableLength - rowStep;
-      }
-      variableLength = this.length + rowStep;
-      for (let i = 0; i < 5; i++) {
-        if (this.lockedVariable === 'height') {
+      } else {
+        if (this.useY2) {
           this.chartRows.push({
-            height: this.height,
-            length: variableLength,
-            slope: this.calculateSlope(this.height, variableLength)
+            y1: this.y1,
+            y2: this.y2,
+            x: this.calculateLength(Math.abs(this.y2 - this.y1), actualSlope),
+            slope: actualSlope
           });
         } else {
           this.chartRows.push({
-            height: this.calculateHeight(variableLength, this.getActualSlope()),
-            length: variableLength,
-            slope: this.getActualSlope()
+            y1: this.y1,
+            y2: 0,
+            x: this.calculateLength(this.y1, actualSlope),
+            slope: actualSlope
           });
         }
-        variableLength = variableLength + rowStep;
       }
-    } else {
-      let variableSlope = this.getActualSlope() - rowStep;
-      for (let i = 0; i < 5; i++) {
-        if (variableSlope < 0) {
-          break;
-        }
-        if (this.lockedVariable === 'height') {
-          this.chartRows.unshift({
-            height: this.height,
-            length: this.calculateLength(this.height, variableSlope),
-            slope: variableSlope
-          });
-        } else {
-          this.chartRows.unshift({
-            height: this.calculateHeight(this.length, variableSlope),
-            length: this.length,
-            slope: variableSlope
-          });
-        }
-        variableSlope = variableSlope - rowStep;
-      }
-      variableSlope = this.getActualSlope() + rowStep;
-      for (let i = 0; i < 5; i++) {
-        if (this.lockedVariable === 'height') {
-          this.chartRows.push({
-            height: this.height,
-            length: this.calculateLength(this.height, variableSlope),
-            slope: variableSlope
-          });
-        } else {
-          this.chartRows.push({
-            height: this.calculateHeight(this.length, variableSlope),
-            length: this.length,
-            slope: variableSlope
-          });
-        }
-        variableSlope = variableSlope + rowStep;
-      }
+      variableSlope = this.roundToHundredths(variableSlope + 0.1);
     }
   }
 
@@ -237,5 +171,9 @@ export class AppComponent implements OnInit {
     // this.ctx.moveTo(xOffset, yOffset);
     // this.ctx.lineTo((xValue + xOffset), (yValue + yOffset));
     // this.ctx.stroke();
+  }
+
+  private roundToHundredths(value: number) {
+    return Math.round((value * 100)) / 100;
   }
 }

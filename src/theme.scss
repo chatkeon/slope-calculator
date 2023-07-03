@@ -15,18 +15,3 @@ $my-theme: mat.define-light-theme((
 ));
 
 @include mat.all-component-themes($my-theme);
-
-@mixin mix-app-theme($app-theme) {
-  $accent: map-get($app-theme, accent);
-
-  .mat-button-toggle-checked {
-    background-color: mat.get-color-from-palette($accent);
-    font-weight: bold;
-
-    .mat-button-toggle-label-content{
-        color: white;
-    }
-  }
-}
-
-@include mix-app-theme($my-theme);
