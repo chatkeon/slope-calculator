@@ -147,59 +147,56 @@ export class AppComponent implements OnInit {
 
       actualSlope = variableSlope / 100;
 
-      // Pin the last updated variable and the currently locked variable
+      // Pin the last updated variable and the currently locked variable, calculate the remaining variable
       if (this.lastUpdatedVariable === 'y1') {
         if (this.lockedVariable === 'y2') {
-          this.tableRows.push({
-            y1: this.y1,
-            y2: this.y2,
-            x: this.calculateLength(Math.abs(this.y2 - this.y1), actualSlope),
-            slope: actualSlope
-          });
+          this.addTableRowCalcX(this.y1, this.y2, actualSlope);
         } else {
-          this.tableRows.push({
-            y1: this.y1,
-            y2: this.calculateY(this.y1, this.x, actualSlope),
-            x: this.x,
-            slope: actualSlope
-          });
+          this.addTableRowCalcY2(this.y1, this.x, actualSlope);
         }
       } else if (this.lastUpdatedVariable === 'y2') {
         if (this.lockedVariable === 'y1') {
-          this.tableRows.push({
-            y1: this.y1,
-            y2: this.y2,
-            x: this.calculateLength(Math.abs(this.y2 - this.y1), actualSlope),
-            slope: actualSlope
-          });
+          this.addTableRowCalcX(this.y1, this.y2, actualSlope);
         } else {
-          this.tableRows.push({
-            y1: this.calculateY(this.y2, this.x, actualSlope),
-            y2: this.y2,
-            x: this.x,
-            slope: actualSlope
-          });
+          this.addTableRowCalcY1(this.y2, this.x, actualSlope);
         }
       } else {
         if (this.lockedVariable === 'y1') {
-          this.tableRows.push({
-            y1: this.y1,
-            y2: this.calculateY(this.y1, this.x, actualSlope),
-            x: this.x,
-            slope: actualSlope
-          });
+          this.addTableRowCalcY2(this.y1, this.x, actualSlope);
         } else {
-          this.tableRows.push({
-            y1: this.calculateY(this.y2, this.x, actualSlope),
-            y2: this.y2,
-            x: this.x,
-            slope: actualSlope
-          });
+          this.addTableRowCalcY1(this.y2, this.x, actualSlope);
         }
       }
 
       variableSlope = variableSlope + this.settings.table.step;
     }
+  }
+
+  private addTableRowCalcY1(y2: number, x: number, slope: number) {
+    this.tableRows.push({
+      y1: this.calculateY(y2, x, slope),
+      y2: y2,
+      x: x,
+      slope: slope
+    });
+  }
+
+  private addTableRowCalcY2(y1: number, x: number, slope: number) {
+    this.tableRows.push({
+      y1: y1,
+      y2: this.calculateY(y1, x, slope),
+      x: x,
+      slope: slope
+    });
+  }
+
+  private addTableRowCalcX(y1: number, y2: number, slope: number) {
+    this.tableRows.push({
+      y1: y1,
+      y2: y2,
+      x: this.calculateLength(Math.abs(y2 - y1), slope),
+      slope: slope
+    });
   }
 
   private calculateHeight(length: number, slope: number): number {

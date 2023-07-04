@@ -33,7 +33,7 @@
 #inputs-container {
   display: flex;
   width: 100%;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
 }
 
 #y1-input, #y2-input, #x-input {
@@ -163,9 +163,4 @@ footer {
   width: calc(100% - 32px);
   text-align: center;
   padding: 16px;
-}
-
-/* Mobile-specific styling */
-@media only screen and (max-width: 768px) {
-  /* TODO: Add styling */
 }

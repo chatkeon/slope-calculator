@@ -8,7 +8,7 @@
 
 .settings-row {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   margin-bottom: 16px;
 }
 
