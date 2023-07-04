@@ -177,9 +177,9 @@
             <mat-option [value]="6">6</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field class="settings-form-field">
           <mat-label>Step</mat-label>
-          <mat-select [(ngModel)]="tableStep" required>
+          <mat-select [(ngModel)]="tableStep" name="tableStep" required>
             <mat-option [value]="0.001">0.001</mat-option>
             <mat-option [value]="0.002">0.002</mat-option>
             <mat-option [value]="0.005">0.005</mat-option>

@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
   minSlope = 0.5;
   maxSlope = 2.0;
 
-  displayedColumns: string[] = ['y1', 'x', 'slope'];
+  displayedColumns: string[] = ['y1', 'y2', 'x', 'slope'];
   tableRows: TableRow[] = [];
 
   constructor(public dialog: MatDialog) {

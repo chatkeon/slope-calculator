@@ -30,10 +30,6 @@
   margin-bottom: 8px;
 }
 
-#y2-toggle {
-  flex: 0 0 auto;
-}
-
 #inputs-container {
   display: flex;
   width: 100%;
