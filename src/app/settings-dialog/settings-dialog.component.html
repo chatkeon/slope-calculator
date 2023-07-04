@@ -1,8 +1,189 @@
-<h1 mat-dialog-title>Settings</h1>
-<div mat-dialog-content>
-  <p>Placeholder</p>
-</div>
-<div mat-dialog-actions>
-  <button mat-button type="button" mat-dialog-close>Cancel</button>
-  <button mat-raised-button type="button" color="accent" [mat-dialog-close]="settings" cdkFocusInitial>Ok</button>
+<div class="dialog-container">
+  <h1 mat-dialog-title>Settings</h1>
+  <div mat-dialog-content>
+    <form #settingsForm="ngForm" id="settings-form">
+      <div id="precision-settings" class="settings-row">
+        <mat-form-field class="settings-form-field">
+          <mat-label>Precision</mat-label>
+          <input matInput class="settings-input" [ngModel]="precision" (ngModelChange)="updatePrecision($event)"
+                 name="precision" type="number" #precisionInput="ngModel"
+                 min="0" max="6" required />
+          <mat-error *ngIf="precisionInput.errors?.['required']">
+            Value is required
+          </mat-error>
+          <mat-error *ngIf="precisionInput.errors?.['min']">
+            Value must be > 0
+          </mat-error>
+          <mat-error *ngIf="precisionInput.errors?.['max']">
+            Value must be <= 6
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <mat-divider></mat-divider>
+      <h4 class="section-title">Slider Controls</h4>
+      <div id="y1-settings" class="settings-row">
+        <mat-form-field class="settings-form-field">
+          <mat-label>Y1 Min</mat-label>
+          <input matInput class="settings-input" [(ngModel)]="minY1" name="minY1" type="number" #minY1Input="ngModel"
+                 min="0" [max]="maxY1 - 1" required />
+          <mat-error *ngIf="minY1Input.errors?.['required']">
+            Value is required
+          </mat-error>
+          <mat-error *ngIf="minY1Input.errors?.['min']">
+            Value must be > 0
+          </mat-error>
+          <mat-error *ngIf="minY1Input.errors?.['max']">
+            Value must be <= Y1 Max
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="settings-form-field">
+          <mat-label>Y1 Max</mat-label>
+          <input matInput class="settings-input" [(ngModel)]="maxY1" name="maxY1" type="number" #maxY1Input="ngModel"
+                 [min]="minY1 + 1" required />
+          <mat-error *ngIf="maxY1Input.errors?.['required']">
+            Value is required
+          </mat-error>
+          <mat-error *ngIf="maxY1Input.errors?.['min']">
+            Value must be > Y1 Min
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="settings-form-field">
+          <mat-label>Y1 Step</mat-label>
+          <input matInput class="settings-input" [(ngModel)]="stepY1" name="stepY1" type="number" #stepY1Input="ngModel"
+                 min="0" required />
+          <mat-error *ngIf="stepY1Input.errors?.['required']">
+            Value is required
+          </mat-error>
+          <mat-error *ngIf="stepY1Input.errors?.['min']">
+            Value must be > 0
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div id="y2-settings" class="settings-row">
+        <mat-form-field class="settings-form-field">
+          <mat-label>Y2 Min</mat-label>
+          <input matInput class="settings-input" [(ngModel)]="minY2" name="minY2" type="number" #minY2Input="ngModel"
+                 min="0" [max]="maxY2 - 1" required />
+          <mat-error *ngIf="minY2Input.errors?.['required']">
+            Value is required
+          </mat-error>
+          <mat-error *ngIf="minY2Input.errors?.['min']">
+            Value must be > 0
+          </mat-error>
+          <mat-error *ngIf="minY2Input.errors?.['max']">
+            Value must be <= Y2 Max
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="settings-form-field">
+          <mat-label>Y2 Max</mat-label>
+          <input matInput class="settings-input" [(ngModel)]="maxY2" name="maxY2" type="number" #maxY2Input="ngModel"
+                 [min]="minY2 + 1" required />
+          <mat-error *ngIf="maxY2Input.errors?.['required']">
+            Value is required
+          </mat-error>
+          <mat-error *ngIf="maxY2Input.errors?.['min']">
+            Value must be > Y2 Min
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="settings-form-field">
+          <mat-label>Y2 Step</mat-label>
+          <input matInput class="settings-input" [(ngModel)]="stepY2" name="stepY2" type="number" #stepY2Input="ngModel"
+                 min="0" required />
+          <mat-error *ngIf="stepY2Input.errors?.['required']">
+            Value is required
+          </mat-error>
+          <mat-error *ngIf="stepY2Input.errors?.['min']">
+            Value must be > 0
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div id="x-settings" class="settings-row">
+        <mat-form-field class="settings-form-field">
+          <mat-label>X Min</mat-label>
+          <input matInput class="settings-input" [(ngModel)]="minX" name="minX" type="number" #minXInput="ngModel"
+                 min="0" [max]="maxX - 1" required />
+          <mat-error *ngIf="minXInput.errors?.['required']">
+            Value is required
+          </mat-error>
+          <mat-error *ngIf="minXInput.errors?.['min']">
+            Value must be > 0
+          </mat-error>
+          <mat-error *ngIf="minXInput.errors?.['max']">
+            Value must be <= X Max
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="settings-form-field">
+          <mat-label>X Max</mat-label>
+          <input matInput class="settings-input" [(ngModel)]="maxX" name="maxX" type="number" #maxXInput="ngModel"
+                 [min]="minX + 1" required />
+          <mat-error *ngIf="maxXInput.errors?.['required']">
+            Value is required
+          </mat-error>
+          <mat-error *ngIf="maxXInput.errors?.['min']">
+            Value must be > X Min
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="settings-form-field">
+          <mat-label>X Step</mat-label>
+          <input matInput class="settings-input" [(ngModel)]="stepX" name="stepX" type="number" #stepXInput="ngModel"
+                 min="0" required />
+          <mat-error *ngIf="stepXInput.errors?.['required']">
+            Value is required
+          </mat-error>
+          <mat-error *ngIf="stepXInput.errors?.['min']">
+            Value must be > 0
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div id="slope-settings" class="settings-row">
+        <mat-form-field class="settings-form-field">
+          <mat-label>Slope Min</mat-label>
+          <input matInput class="settings-input" [(ngModel)]="minSlope" name="minSlope" type="number" #minSlopeInput="ngModel"
+                 min="0" [max]="maxSlope - 1" required />
+          <mat-error *ngIf="minSlopeInput.errors?.['required']">
+            Value is required
+          </mat-error>
+          <mat-error *ngIf="minSlopeInput.errors?.['min']">
+            Value must be > 0
+          </mat-error>
+          <mat-error *ngIf="minSlopeInput.errors?.['max']">
+            Value must be <= Slope Max
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="settings-form-field">
+          <mat-label>Slope Max</mat-label>
+          <input matInput class="settings-input" [(ngModel)]="maxSlope" name="maxSlope" type="number" #maxSlopeInput="ngModel"
+                 [min]="minSlope + 1" max="100" required />
+          <mat-error *ngIf="maxSlopeInput.errors?.['required']">
+            Value is required
+          </mat-error>
+          <mat-error *ngIf="maxSlopeInput.errors?.['min']">
+            Value must be > Slope Min
+          </mat-error>
+          <mat-error *ngIf="maxSlopeInput.errors?.['max']">
+            Value must be <= 100
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="settings-form-field">
+          <mat-label>Slope Step</mat-label>
+          <input matInput class="settings-input" [(ngModel)]="stepSlope" name="stepSlope" type="number" #stepSlopeInput="ngModel"
+                 min="0" required />
+          <mat-error *ngIf="stepSlopeInput.errors?.['required']">
+            Value is required
+          </mat-error>
+          <mat-error *ngIf="stepSlopeInput.errors?.['min']">
+            Value must be > 0
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button id="cancel-button" type="button" mat-dialog-close>Cancel</button>
+    <button mat-button id="save-button" type="button" color="accent" (click)="save()" [disabled]="settingsForm.invalid"
+            cdkFocusInitial>Save</button>
+  </div>
 </div>

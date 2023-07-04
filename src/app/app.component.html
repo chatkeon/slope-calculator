@@ -1,9 +1,9 @@
 <mat-toolbar color="primary" id="header">
   <span>Slope Calculator</span>
-  <!-- <span class="spacer"></span>
-  <button mat-icon-button id="options-button" (click)="openSettingsDialog()">
+  <span class="spacer"></span>
+  <button mat-icon-button id="options-button" (click)="openSettingsDialog()" matTooltip="Configure settings">
     <mat-icon>settings</mat-icon>
-  </button> -->
+  </button>
 </mat-toolbar>
 
 <div id="main">
@@ -11,10 +11,9 @@
     <div id="instruction-container">
       <p id="instruction-text">Use inputs or sliders to adjust values in the table below:</p>
       <mat-slide-toggle id="y2-toggle" color="accent" [checked]="useY2"
-                        (click)="toggleY2($event)">Use Y2</mat-slide-toggle>
+                        (click)="toggleY2()">Use Y2</mat-slide-toggle>
     </div>
 
-    <!-- TODO: Fix styling when screen is not wide enough -->
     <div id="inputs-container">
       <div id="y1-input">
         <div class="variable-container">
@@ -26,7 +25,7 @@
                       (click)="lock('y1')">{{ lockedVariable === 'y1' ? 'lock' : 'lock_open' }}</mat-icon>
           </mat-form-field>
           <div class="slider-container">
-            <mat-slider class="variable-slider" min="0" max="500" step="1">
+            <mat-slider class="variable-slider" [min]="settings.minY1" [max]="settings.maxY1" [step]="settings.stepY1">
               <input matSliderThumb [disabled]="lockedVariable === 'y1'"
                      [ngModel]="y1" (ngModelChange)="updateY1($event)">
             </mat-slider>
@@ -44,7 +43,7 @@
                       (click)="lock('y2')">{{ lockedVariable === 'y2' ? 'lock' : 'lock_open' }}</mat-icon>
           </mat-form-field>
           <div class="slider-container">
-            <mat-slider class="variable-slider" min="0" max="500" step="1">
+            <mat-slider class="variable-slider" [min]="settings.minY2" [max]="settings.maxY2" [step]="settings.stepY2">
               <input matSliderThumb [disabled]="lockedVariable === 'y2'"
                      [ngModel]="y2" (ngModelChange)="updateY2($event)">
             </mat-slider>
@@ -62,7 +61,7 @@
                       (click)="lock('x')">{{ lockedVariable === 'x' ? 'lock' : 'lock_open' }}</mat-icon>
           </mat-form-field>
           <div class="slider-container">
-            <mat-slider class="variable-slider" min="0" max="500" step="1">
+            <mat-slider class="variable-slider" [min]="settings.minX" [max]="settings.maxX" [step]="settings.stepX">
               <input matSliderThumb [disabled]="lockedVariable === 'x'"
                      [ngModel]="x" (ngModelChange)="updateX($event)">
             </mat-slider>
@@ -72,7 +71,7 @@
 
       <div id="slope-input">
         <div class="variable-container">
-          <div class="flex-container">
+          <div class="slope-container">
             <mat-form-field class="slope-form-field">
               <mat-label>Slope Min (%)</mat-label>
               <input matInput class="slope-input" required
@@ -85,7 +84,8 @@
             </mat-form-field>
           </div>
           <div class="slider-container">
-            <mat-slider class="variable-slider" [min]="defaultMinSlope" [max]="defaultMaxSlope" step="0.01">
+            <mat-slider class="variable-slider" [min]="settings.minSlope" [max]="settings.maxSlope"
+                        [step]="settings.stepSlope">
               <input matSliderStartThumb [ngModel]="minSlope" (ngModelChange)="updateMinSlope($event)">
               <input matSliderEndThumb [ngModel]="maxSlope" (ngModelChange)="updateMaxSlope($event)">
             </mat-slider>

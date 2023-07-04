@@ -43,20 +43,16 @@
 }
 
 #y1-input, #y2-input, #x-input {
-  flex: 5 1 25%;
+  flex: 4 1 auto;
 }
 
 #slope-input {
-  flex: 1 2 25%;
+  flex: 1 1 auto;
 }
 
 .variable-container {
   display: block;
   padding: 16px;
-}
-
-.variable-container > * {
-  width: 100%;
 }
 
 .variable-form-field {
@@ -69,7 +65,7 @@
 }
 
 .lock-icon:hover {
-  opacity: 0.5;
+  color: #00BCD4;
 }
 
 .lock-icon.locked {
@@ -77,13 +73,13 @@
   pointer-events: none;
 }
 
-.flex-container {
-  display: flex;
-  flex-wrap: nowrap;
+.slope-container {
+  display: block;
+  width: 100%;
 }
 
 .slope-form-field {
-  flex: 1 0 auto;
+  width: calc(50% - 8px);
 }
 
 .slope-form-field:first-child {
@@ -116,8 +112,5 @@ footer {
 
 /* Mobile-specific styling */
 @media only screen and (max-width: 768px) {
-  #main > .card {
-    width: 100%;
-    max-width: auto;
-  }
+  /* TODO: Add styling */
 }

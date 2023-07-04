@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+
+import { SettingsDialogComponent } from './settings-dialog/settings-dialog.component';
+import { Settings } from './settings.model';
 
 declare interface ChartRow {
   y1: number;
@@ -13,8 +17,21 @@ declare interface ChartRow {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  defaultMinSlope = 0.5;
-  defaultMaxSlope = 5;
+  settings: Settings = {
+    precision: 2,
+    minY1: 0,
+    maxY1: 500,
+    stepY1: 1,
+    minY2: 0,
+    maxY2: 500,
+    stepY2: 1,
+    minX: 0,
+    maxX: 500,
+    stepX: 1,
+    minSlope: 0.5,
+    maxSlope: 5.0,
+    stepSlope: 0.01
+  };
   useY2 = false;
   lastUpdatedVariable = 'y1';
   lockedVariable = 'y2';
@@ -29,7 +46,7 @@ export class AppComponent implements OnInit {
   displayedColumns: string[] = ['y1', 'x', 'slope'];
   chartRows: ChartRow[] = [];
 
-  constructor() {
+  constructor(public dialog: MatDialog) {
     this.currentYear = new Date().getFullYear().toString();
   }
 
@@ -38,10 +55,12 @@ export class AppComponent implements OnInit {
   }
 
   lock(variableName: string) {
+    this.lastUpdatedVariable = this.lockedVariable;
     this.lockedVariable = variableName;
+    this.calculateChartRows();
   }
 
-  toggleY2(event: any) {
+  toggleY2() {
     this.useY2 = !this.useY2;
     if (this.useY2) {
       this.displayedColumns = ['y1', 'y2', 'x', 'slope'];
@@ -52,9 +71,6 @@ export class AppComponent implements OnInit {
     }
 
     this.calculateChartRows();
-
-    // Keep the settings menu open
-    event.stopPropagation();
   }
 
   updateY1(newValue: number) {
@@ -76,8 +92,8 @@ export class AppComponent implements OnInit {
   }
 
   updateMinSlope(newValue: number) {
-    if (newValue < this.defaultMinSlope) {
-      newValue = this.defaultMinSlope;
+    if (newValue < this.settings.minSlope) {
+      newValue = this.settings.minSlope;
     }
 
     this.minSlope = newValue;
@@ -85,8 +101,8 @@ export class AppComponent implements OnInit {
   }
 
   updateMaxSlope(newValue: number) {
-    if (newValue > this.defaultMaxSlope) {
-      newValue = this.defaultMaxSlope;
+    if (newValue > this.settings.maxSlope) {
+      newValue = this.settings.maxSlope;
     }
 
     this.maxSlope = newValue;
@@ -94,19 +110,24 @@ export class AppComponent implements OnInit {
   }
 
   openSettingsDialog() {
-    // TODO: Implement
-  }
+    const dialogRef = this.dialog.open(SettingsDialogComponent, {
+      disableClose: true,
+      data: this.settings
+    });
 
-  private calculateHeight(slope: number, length: number): number {
-    return slope / length;
-  }
+    dialogRef.afterClosed().subscribe((updatedSettings?: Settings) => {
+      if (updatedSettings) {
+        this.settings = updatedSettings;
 
-  private calculateLength(height: number, slope: number): number {
-    return height / slope;
-  }
+        if (this.minSlope < this.settings.minSlope) {
+          this.updateMinSlope(this.settings.minSlope);
+        }
 
-  private calculateSlope(height: number, length: number): number {
-    return height / length;
+        if (this.maxSlope > this.settings.maxSlope) {
+          this.updateMaxSlope(this.settings.maxSlope);
+        }
+      }
+    });
   }
 
   private calculateChartRows() {
@@ -127,10 +148,9 @@ export class AppComponent implements OnInit {
               slope: actualSlope
             });
           } else {
-            const height = this.calculateHeight(this.x, actualSlope);
             this.chartRows.push({
               y1: this.y1,
-              y2: Math.abs(height - this.y1),
+              y2: this.calculateY(this.y1, this.x, actualSlope),
               x: this.x,
               slope: actualSlope
             });
@@ -144,26 +164,24 @@ export class AppComponent implements OnInit {
               slope: actualSlope
             });
           } else {
-            const height = this.calculateHeight(this.x, actualSlope);
             this.chartRows.push({
-              y1: Math.abs(height - this.y2),
+              y1: this.calculateY(this.y2, this.x, actualSlope),
               y2: this.y2,
               x: this.x,
               slope: actualSlope
             });
           }
         } else {
-          const height = this.calculateHeight(this.x, actualSlope);
           if (this.lockedVariable === 'y1') {
             this.chartRows.push({
               y1: this.y1,
-              y2: Math.abs(height - this.y1),
+              y2: this.calculateY(this.y1, this.x, actualSlope),
               x: this.x,
               slope: actualSlope
             });
           } else {
             this.chartRows.push({
-              y1: Math.abs(height - this.y2),
+              y1: this.calculateY(this.y2, this.x, actualSlope),
               y2: this.y2,
               x: this.x,
               slope: actualSlope
@@ -190,6 +208,19 @@ export class AppComponent implements OnInit {
       }
       variableSlope = this.roundToHundredths(variableSlope + 0.1);
     }
+  }
+
+  private calculateHeight(length: number, slope: number): number {
+    return slope * length;
+  }
+
+  private calculateLength(height: number, slope: number): number {
+    return height / slope;
+  }
+
+  private calculateY(otherY: number, length: number, slope: number): number {
+    const height = this.calculateHeight(length, slope);
+    return (otherY > height) ? (otherY - height) : (otherY + height);
   }
 
   private roundToHundredths(value: number) {
