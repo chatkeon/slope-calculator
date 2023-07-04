@@ -1,19 +1,19 @@
+export interface Slider {
+  min: number;
+  max: number;
+  step: number;
+}
+
 export interface Settings {
-  precision: number;
+  slider: {
+    y1: Slider;
+    y2: Slider;
+    x: Slider;
+    slope: Slider;
+  };
 
-  minY1: number;
-  maxY1: number;
-  stepY1: number;
-
-  minY2: number;
-  maxY2: number;
-  stepY2: number;
-
-  minX: number;
-  maxX: number;
-  stepX: number;
-
-  minSlope: number;
-  maxSlope: number;
-  stepSlope: number;
+  table: {
+    precision: number;
+    step: number;
+  }
 }

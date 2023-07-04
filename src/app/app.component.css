@@ -21,15 +21,13 @@
   margin: 0 auto 32px;
 }
 
-#instruction-container {
+#instruction-text {
   padding: 16px;
-  display: flex;
-  align-items: center;
+  margin-bottom: 8px;
 }
 
-#instruction-text {
-  flex: 1 0 auto;
-  margin-bottom: 0;
+#instruction-text p {
+  margin-bottom: 8px;
 }
 
 #y2-toggle {
@@ -100,7 +98,7 @@
   width: calc(100% - 32px);
 }
 
-.chart-cell {
+.table-cell {
   text-align: center;
 }
 

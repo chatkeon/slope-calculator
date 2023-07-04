@@ -9,7 +9,6 @@ import { Settings } from '../settings.model';
   styleUrls: ['./settings-dialog.component.css']
 })
 export class SettingsDialogComponent {
-  precision: number;
   minY1: number;
   maxY1: number;
   stepY1: number;
@@ -22,42 +21,39 @@ export class SettingsDialogComponent {
   minSlope: number;
   maxSlope: number;
   stepSlope: number;
+  precision: number;
+  tableStep: number;
 
   constructor(public dialogRef: MatDialogRef<SettingsDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: Settings) {
-    this.precision = data.precision;
-    this.minY1 = data.minY1;
-    this.maxY1 = data.maxY1;
-    this.stepY1 = data.stepY1;
-    this.minY2 = data.minY2;
-    this.maxY2 = data.maxY2;
-    this.stepY2 = data.stepY2;
-    this.minX = data.minX;
-    this.maxX = data.maxX;
-    this.stepX = data.stepX;
-    this.minSlope = data.minSlope;
-    this.maxSlope = data.maxSlope;
-    this.stepSlope = data.stepSlope;
-  }
+    this.minY1 = data.slider.y1.min;
+    this.maxY1 = data.slider.y1.max;
+    this.stepY1 = data.slider.y1.step;
+    this.minY2 = data.slider.y2.min;
+    this.maxY2 = data.slider.y2.max;
+    this.stepY2 = data.slider.y2.step;
+    this.minX = data.slider.x.min;
+    this.maxX = data.slider.x.max;
+    this.stepX = data.slider.x.step;
+    this.minSlope = data.slider.slope.min;
+    this.maxSlope = data.slider.slope.max;
+    this.stepSlope = data.slider.slope.step;
 
-  updatePrecision(newValue: number) {
-    this.precision = Math.round(newValue);
+    this.precision = data.table.precision;
+    this.tableStep = data.table.step;
   }
 
   save() {
     const updatedSettings: Settings = {
-      precision: this.precision,
-      minY1: this.minY1,
-      maxY1: this.maxY1,
-      stepY1: this.stepY1,
-      minY2: this.minY2,
-      maxY2: this.maxY2,
-      stepY2: this.stepY2,
-      minX: this.minX,
-      maxX: this.maxX,
-      stepX: this.stepX,
-      minSlope: this.minSlope,
-      maxSlope: this.maxSlope,
-      stepSlope: this.stepSlope
+      slider: {
+        y1: { min: this.minY1, max: this.maxY1, step: this.stepY1 },
+        y2: { min: this.minY2, max: this.maxY2, step: this.stepY2 },
+        x: { min: this.minX, max: this.maxX, step: this.stepX },
+        slope: { min: this.minSlope, max: this.maxSlope, step: this.stepSlope }
+      },
+      table: {
+        precision: this.precision,
+        step: this.tableStep
+      }
     };
 
     this.dialogRef.close(updatedSettings);

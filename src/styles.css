@@ -8,6 +8,6 @@ body {
   background-color: #D1D8DE;
 }
 
-.mat-mdc-form-field-infix {
+.auto-width .mat-mdc-form-field-infix {
     width: auto !important;
 }

@@ -2,25 +2,7 @@
   <h1 mat-dialog-title>Settings</h1>
   <div mat-dialog-content>
     <form #settingsForm="ngForm" id="settings-form">
-      <div id="precision-settings" class="settings-row">
-        <mat-form-field class="settings-form-field">
-          <mat-label>Precision</mat-label>
-          <input matInput class="settings-input" [ngModel]="precision" (ngModelChange)="updatePrecision($event)"
-                 name="precision" type="number" #precisionInput="ngModel"
-                 min="0" max="6" required />
-          <mat-error *ngIf="precisionInput.errors?.['required']">
-            Value is required
-          </mat-error>
-          <mat-error *ngIf="precisionInput.errors?.['min']">
-            Value must be > 0
-          </mat-error>
-          <mat-error *ngIf="precisionInput.errors?.['max']">
-            Value must be <= 6
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <mat-divider></mat-divider>
-      <h4 class="section-title">Slider Controls</h4>
+      <h4 class="section-title">Slider Options</h4>
       <div id="y1-settings" class="settings-row">
         <mat-form-field class="settings-form-field">
           <mat-label>Y1 Min</mat-label>
@@ -177,6 +159,38 @@
           <mat-error *ngIf="stepSlopeInput.errors?.['min']">
             Value must be > 0
           </mat-error>
+        </mat-form-field>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <h4 class="section-title">Table Options</h4>
+      <div id="table-settings" class="settings-row">
+        <mat-form-field class="settings-form-field">
+          <mat-label>Precision</mat-label>
+          <mat-select [(ngModel)]="precision" name="precision" required>
+            <mat-option [value]="1">1</mat-option>
+            <mat-option [value]="2">2</mat-option>
+            <mat-option [value]="3">3</mat-option>
+            <mat-option [value]="4">4</mat-option>
+            <mat-option [value]="5">5</mat-option>
+            <mat-option [value]="6">6</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Step</mat-label>
+          <mat-select [(ngModel)]="tableStep" required>
+            <mat-option [value]="0.001">0.001</mat-option>
+            <mat-option [value]="0.002">0.002</mat-option>
+            <mat-option [value]="0.005">0.005</mat-option>
+            <mat-option [value]="0.01">0.01</mat-option>
+            <mat-option [value]="0.02">0.02</mat-option>
+            <mat-option [value]="0.05">0.05</mat-option>
+            <mat-option [value]="0.1">0.1</mat-option>
+            <mat-option [value]="0.2">0.2</mat-option>
+            <mat-option [value]="0.5">0.5</mat-option>
+            <mat-option [value]="1">1</mat-option>
+          </mat-select>
         </mat-form-field>
       </div>
     </form>

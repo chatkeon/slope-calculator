@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTableModule } from '@angular/material/table';
@@ -37,6 +38,7 @@ import { SettingsDialogComponent } from './settings-dialog/settings-dialog.compo
     MatIconModule,
     MatInputModule,
     MatMenuModule,
+    MatSelectModule,
     MatSliderModule,
     MatSlideToggleModule,
     MatTableModule,
