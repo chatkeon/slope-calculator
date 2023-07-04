@@ -21,6 +21,21 @@
   margin: 0 auto 32px;
 }
 
+#instruction-container {
+  padding: 16px;
+  display: flex;
+  align-items: center;
+}
+
+#instruction-text {
+  flex: 1 0 auto;
+  margin-bottom: 0;
+}
+
+#y2-toggle {
+  flex: 0 0 auto;
+}
+
 #inputs-container {
   display: flex;
   width: 100%;
@@ -47,6 +62,19 @@
 .variable-form-field {
   display: block;
   width: 100%;
+}
+
+.lock-icon {
+  cursor: pointer;
+}
+
+.lock-icon:hover {
+  opacity: 0.5;
+}
+
+.lock-icon.locked {
+  opacity: 0.3;
+  pointer-events: none;
 }
 
 .flex-container {
@@ -77,10 +105,6 @@
 }
 
 .chart-cell {
-  text-align: center;
-}
-
-#drawing-container {
   text-align: center;
 }
 
