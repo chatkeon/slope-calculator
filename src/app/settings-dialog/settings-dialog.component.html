@@ -13,7 +13,7 @@
             Value is required
           </mat-error>
           <mat-error *ngIf="minY1Input.errors?.['min']">
-            Value must be > 0
+            Value must be >= 0
           </mat-error>
           <mat-error *ngIf="minY1Input.errors?.['max']">
             Value must be <= Y1 Max
@@ -35,11 +35,11 @@
                         matTooltip="Step size for Y1 slider" matTooltipShowDelay="1000">
           <mat-label>Y1 Step</mat-label>
           <input matInput class="settings-input" [(ngModel)]="stepY1" name="stepY1" type="number" #stepY1Input="ngModel"
-                 min="0" required />
+                 min="0" pattern="([0-9]?\.[0-9]*)?[1-9]\d*" required />
           <mat-error *ngIf="stepY1Input.errors?.['required']">
             Value is required
           </mat-error>
-          <mat-error *ngIf="stepY1Input.errors?.['min']">
+          <mat-error *ngIf="stepY1Input.errors?.['pattern']">
             Value must be > 0
           </mat-error>
         </mat-form-field>
@@ -55,7 +55,7 @@
             Value is required
           </mat-error>
           <mat-error *ngIf="minY2Input.errors?.['min']">
-            Value must be > 0
+            Value must be >= 0
           </mat-error>
           <mat-error *ngIf="minY2Input.errors?.['max']">
             Value must be <= Y2 Max
@@ -77,11 +77,11 @@
                         matTooltip="Step size for Y2 slider" matTooltipShowDelay="1000">
           <mat-label>Y2 Step</mat-label>
           <input matInput class="settings-input" [(ngModel)]="stepY2" name="stepY2" type="number" #stepY2Input="ngModel"
-                 min="0" required />
+                 min="0" pattern="([0-9]?\.[0-9]*)?[1-9]\d*" required />
           <mat-error *ngIf="stepY2Input.errors?.['required']">
             Value is required
           </mat-error>
-          <mat-error *ngIf="stepY2Input.errors?.['min']">
+          <mat-error *ngIf="stepY2Input.errors?.['pattern']">
             Value must be > 0
           </mat-error>
         </mat-form-field>
@@ -97,7 +97,7 @@
             Value is required
           </mat-error>
           <mat-error *ngIf="minXInput.errors?.['min']">
-            Value must be > 0
+            Value must be >= 0
           </mat-error>
           <mat-error *ngIf="minXInput.errors?.['max']">
             Value must be <= X Max
@@ -119,11 +119,11 @@
                         matTooltip="Step size for X slider" matTooltipShowDelay="1000">
           <mat-label>X Step</mat-label>
           <input matInput class="settings-input" [(ngModel)]="stepX" name="stepX" type="number" #stepXInput="ngModel"
-                 min="0" required />
+                 min="0" pattern="([0-9]?\.[0-9]*)?[1-9]\d*" required />
           <mat-error *ngIf="stepXInput.errors?.['required']">
             Value is required
           </mat-error>
-          <mat-error *ngIf="stepXInput.errors?.['min']">
+          <mat-error *ngIf="stepXInput.errors?.['patttern']">
             Value must be > 0
           </mat-error>
         </mat-form-field>
@@ -139,7 +139,7 @@
             Value is required
           </mat-error>
           <mat-error *ngIf="minSlopeInput.errors?.['min']">
-            Value must be > 0
+            Value must be >= 0
           </mat-error>
           <mat-error *ngIf="minSlopeInput.errors?.['max']">
             Value must be <= Slope Max
@@ -164,11 +164,11 @@
                         matTooltip="Step size for slope slider" matTooltipShowDelay="1000">
           <mat-label>Slope Step</mat-label>
           <input matInput class="settings-input" [(ngModel)]="stepSlope" name="stepSlope" type="number" #stepSlopeInput="ngModel"
-                 min="0" required />
+                 min="0" pattern="([0-9]?\.[0-9]*)?[1-9]\d*" required />
           <mat-error *ngIf="stepSlopeInput.errors?.['required']">
             Value is required
           </mat-error>
-          <mat-error *ngIf="stepSlopeInput.errors?.['min']">
+          <mat-error *ngIf="stepSlopeInput.errors?.['pattern']">
             Value must be > 0
           </mat-error>
         </mat-form-field>

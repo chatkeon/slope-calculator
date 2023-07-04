@@ -45,6 +45,11 @@ export class AppComponent implements OnInit {
   tableRows: TableRow[] = [];
   truncatedTableRows = false;
 
+  slopeCalcY1?: number;
+  slopeCalcY2?: number;
+  slopeCalcX?: number;
+  slopeCalc?: number;
+
   constructor(public dialog: MatDialog) {
     this.currentYear = new Date().getFullYear().toString();
   }
@@ -117,6 +122,15 @@ export class AppComponent implements OnInit {
         this.updateTable();
       }
     });
+  }
+
+  calculateSlope() {
+    this.slopeCalc = undefined;
+    let height = this.slopeCalcY1!;
+    if (this.slopeCalcY2 !== undefined && this.slopeCalcY2 !== null) {
+      height = Math.abs(this.slopeCalcY2! - this.slopeCalcY1!);
+    }
+    this.slopeCalc = height / this.slopeCalcX!;
   }
 
   private updateTable() {

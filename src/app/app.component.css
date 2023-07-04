@@ -129,6 +129,36 @@
   text-align: center;
 }
 
+#slope-form {
+  margin-top: 16px;
+}
+
+#slope-calc-inputs-container {
+  display: flex;
+  width: 100%;
+}
+
+.slope-calc-form-field {
+  flex: 1 0 auto;
+  padding: 16px;
+}
+
+#slope-calc-result-container {
+  display: block;
+  padding: 0 16px 16px;
+  white-space: nowrap;
+}
+
+#slope-calc-result-container > * {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#slope-calc-value {
+  margin-left: 16px;
+  margin-bottom: 0;
+}
+
 footer {
   width: calc(100% - 32px);
   text-align: center;
