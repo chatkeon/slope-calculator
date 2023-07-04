@@ -15,5 +15,6 @@ export interface Settings {
   table: {
     precision: number;
     step: number;
+    maxRows: number;
   }
 }

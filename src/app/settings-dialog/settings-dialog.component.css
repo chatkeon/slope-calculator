@@ -2,7 +2,7 @@
   text-align: left;
 }
 
-.section-title {
+.section-title:not(:first-child) {
   padding-top: 16px;
 }
 

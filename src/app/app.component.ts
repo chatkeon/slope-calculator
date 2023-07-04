@@ -27,21 +27,23 @@ export class AppComponent implements OnInit {
     },
     table: {
       precision: 2,
-      step: 0.01
+      step: 0.01,
+      maxRows: 150
     }
   };
   lastUpdatedVariable = 'y1';
   lockedVariable = 'y2';
   tableFormat = '1.0-2';
 
-  y1 = 0.5;
-  y2 = 0.0;
-  x = 100.0;
-  minSlope = 0.5;
-  maxSlope = 2.0;
+  y1: number = 0.5;
+  y2: number = 0.0;
+  x: number = 100.0;
+  minSlope: number = 0.5;
+  maxSlope: number = 2.0;
 
   displayedColumns: string[] = ['y1', 'y2', 'x', 'slope'];
   tableRows: TableRow[] = [];
+  truncatedTableRows = false;
 
   constructor(public dialog: MatDialog) {
     this.currentYear = new Date().getFullYear().toString();
@@ -80,7 +82,7 @@ export class AppComponent implements OnInit {
       newValue = this.settings.slider.slope.min;
     }
 
-    this.minSlope = newValue;
+    this.minSlope = Number(newValue);
     this.updateTable();
   }
 
@@ -89,7 +91,7 @@ export class AppComponent implements OnInit {
       newValue = this.settings.slider.slope.max;
     }
 
-    this.maxSlope = newValue;
+    this.maxSlope = Number(newValue);
     this.updateTable();
   }
 
@@ -104,23 +106,31 @@ export class AppComponent implements OnInit {
         this.settings = updatedSettings;
 
         if (this.minSlope < this.settings.slider.slope.min) {
-          this.updateMinSlope(this.settings.slider.slope.min);
+          this.minSlope = Number(this.settings.slider.slope.min);
         }
 
         if (this.maxSlope > this.settings.slider.slope.max) {
-          this.updateMaxSlope(this.settings.slider.slope.max);
+          this.maxSlope = Number(this.settings.slider.slope.max);
         }
 
         this.tableFormat = `1.0-${this.settings.table.precision}`;
+        this.updateTable();
       }
     });
   }
 
   private updateTable() {
     this.tableRows = [];
-    let variableSlope = this.minSlope;
-    let actualSlope;
+    this.truncatedTableRows = false;
+
+    let variableSlope: number = this.minSlope;
+    let actualSlope: number;
     while (variableSlope <= this.maxSlope) {
+      if (this.tableRows.length >= this.settings.table.maxRows) {
+        this.truncatedTableRows = true;
+        break;
+      }
+
       actualSlope = variableSlope / 100;
 
       // Pin the last updated variable and the currently locked variable
@@ -174,8 +184,7 @@ export class AppComponent implements OnInit {
         }
       }
 
-      // Round to correct float errors
-      variableSlope = Math.round(((variableSlope + this.settings.table.step) * 1000)) / 1000;
+      variableSlope = variableSlope + this.settings.table.step;
     }
   }
 

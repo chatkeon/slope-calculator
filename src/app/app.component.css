@@ -94,6 +94,37 @@
   width: calc(100% - 32px);
 }
 
+#truncated-table-message {
+  display: block;
+  width: calc(100% - 64px);
+  margin: 0 16px;
+  padding: 16px;
+  text-align: center;
+  border: 1px solid #263238;
+  border-radius: 4px;
+  background-color: #ECEFF1;
+  white-space: nowrap;
+}
+
+#truncated-table-message p {
+  margin: 0;
+}
+
+#table-scroll-container {
+  display: block;
+  position: relative;
+  margin-top: 16px;
+  width: 100%;
+  max-height: 800px;
+  overflow-y: auto;
+}
+
+#table .table-header-row {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
 .table-cell {
   text-align: center;
 }

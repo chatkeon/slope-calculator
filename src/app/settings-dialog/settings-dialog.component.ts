@@ -1,4 +1,5 @@
-import { Component, Inject, ViewChild, ElementRef } from '@angular/core';
+import { Component, AfterViewInit, Inject, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { Settings } from '../settings.model';
@@ -8,7 +9,7 @@ import { Settings } from '../settings.model';
   templateUrl: './settings-dialog.component.html',
   styleUrls: ['./settings-dialog.component.css']
 })
-export class SettingsDialogComponent {
+export class SettingsDialogComponent implements AfterViewInit {
   minY1: number;
   maxY1: number;
   stepY1: number;
@@ -23,6 +24,9 @@ export class SettingsDialogComponent {
   stepSlope: number;
   precision: number;
   tableStep: number;
+  maxRows: number;
+
+  @ViewChild('settingsForm') settingsForm!: NgForm;
 
   constructor(public dialogRef: MatDialogRef<SettingsDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: Settings) {
     this.minY1 = data.slider.y1.min;
@@ -40,6 +44,14 @@ export class SettingsDialogComponent {
 
     this.precision = data.table.precision;
     this.tableStep = data.table.step;
+    this.maxRows = data.table.maxRows;
+  }
+
+  ngAfterViewInit() {
+    // Wrap in timeout to avoid ExpressionChangedAfterItHasBeenChecked error
+    setTimeout(() => {
+      this.settingsForm.form.markAllAsTouched();
+    }, 0);
   }
 
   save() {
@@ -52,7 +64,8 @@ export class SettingsDialogComponent {
       },
       table: {
         precision: this.precision,
-        step: this.tableStep
+        step: this.tableStep,
+        maxRows: this.maxRows
       }
     };
 

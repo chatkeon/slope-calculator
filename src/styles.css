@@ -8,6 +8,14 @@ body {
   background-color: #D1D8DE;
 }
 
+a[href] {
+  color: #263238;
+}
+
+a:hover[href], a:visited[href] {
+  color: #00BCD4;
+}
+
 .auto-width .mat-mdc-form-field-infix {
     width: auto !important;
 }

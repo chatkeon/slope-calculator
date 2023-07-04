@@ -4,10 +4,11 @@
     <form #settingsForm="ngForm" id="settings-form">
       <h4 class="section-title">Slider Options</h4>
       <div id="y1-settings" class="settings-row">
-        <mat-form-field class="settings-form-field">
+        <mat-form-field class="settings-form-field"
+                        matTooltip="Minimum value for Y1 slider" matTooltipShowDelay="1000">
           <mat-label>Y1 Min</mat-label>
           <input matInput class="settings-input" [(ngModel)]="minY1" name="minY1" type="number" #minY1Input="ngModel"
-                 min="0" [max]="maxY1 - 1" required />
+                 min="0" [max]="maxY1" required />
           <mat-error *ngIf="minY1Input.errors?.['required']">
             Value is required
           </mat-error>
@@ -18,10 +19,11 @@
             Value must be <= Y1 Max
           </mat-error>
         </mat-form-field>
-        <mat-form-field class="settings-form-field">
+        <mat-form-field class="settings-form-field"
+                        matTooltip="Maximum value for Y1 slider" matTooltipShowDelay="1000">
           <mat-label>Y1 Max</mat-label>
           <input matInput class="settings-input" [(ngModel)]="maxY1" name="maxY1" type="number" #maxY1Input="ngModel"
-                 [min]="minY1 + 1" required />
+                 [min]="minY1" required />
           <mat-error *ngIf="maxY1Input.errors?.['required']">
             Value is required
           </mat-error>
@@ -29,7 +31,8 @@
             Value must be > Y1 Min
           </mat-error>
         </mat-form-field>
-        <mat-form-field class="settings-form-field">
+        <mat-form-field class="settings-form-field"
+                        matTooltip="Step size for Y1 slider" matTooltipShowDelay="1000">
           <mat-label>Y1 Step</mat-label>
           <input matInput class="settings-input" [(ngModel)]="stepY1" name="stepY1" type="number" #stepY1Input="ngModel"
                  min="0" required />
@@ -43,10 +46,11 @@
       </div>
 
       <div id="y2-settings" class="settings-row">
-        <mat-form-field class="settings-form-field">
+        <mat-form-field class="settings-form-field"
+                        matTooltip="Minimum value for Y2 slider" matTooltipShowDelay="1000">
           <mat-label>Y2 Min</mat-label>
           <input matInput class="settings-input" [(ngModel)]="minY2" name="minY2" type="number" #minY2Input="ngModel"
-                 min="0" [max]="maxY2 - 1" required />
+                 min="0" [max]="maxY2" required />
           <mat-error *ngIf="minY2Input.errors?.['required']">
             Value is required
           </mat-error>
@@ -57,10 +61,11 @@
             Value must be <= Y2 Max
           </mat-error>
         </mat-form-field>
-        <mat-form-field class="settings-form-field">
+        <mat-form-field class="settings-form-field"
+                        matTooltip="Maximum value for Y2 slider" matTooltipShowDelay="1000">
           <mat-label>Y2 Max</mat-label>
           <input matInput class="settings-input" [(ngModel)]="maxY2" name="maxY2" type="number" #maxY2Input="ngModel"
-                 [min]="minY2 + 1" required />
+                 [min]="minY2" required />
           <mat-error *ngIf="maxY2Input.errors?.['required']">
             Value is required
           </mat-error>
@@ -68,7 +73,8 @@
             Value must be > Y2 Min
           </mat-error>
         </mat-form-field>
-        <mat-form-field class="settings-form-field">
+        <mat-form-field class="settings-form-field"
+                        matTooltip="Step size for Y2 slider" matTooltipShowDelay="1000">
           <mat-label>Y2 Step</mat-label>
           <input matInput class="settings-input" [(ngModel)]="stepY2" name="stepY2" type="number" #stepY2Input="ngModel"
                  min="0" required />
@@ -82,10 +88,11 @@
       </div>
 
       <div id="x-settings" class="settings-row">
-        <mat-form-field class="settings-form-field">
+        <mat-form-field class="settings-form-field"
+                        matTooltip="Minimum value for X slider" matTooltipShowDelay="1000">
           <mat-label>X Min</mat-label>
           <input matInput class="settings-input" [(ngModel)]="minX" name="minX" type="number" #minXInput="ngModel"
-                 min="0" [max]="maxX - 1" required />
+                 min="0" [max]="maxX" required />
           <mat-error *ngIf="minXInput.errors?.['required']">
             Value is required
           </mat-error>
@@ -96,10 +103,11 @@
             Value must be <= X Max
           </mat-error>
         </mat-form-field>
-        <mat-form-field class="settings-form-field">
+        <mat-form-field class="settings-form-field"
+                        matTooltip="Maximum value for X slider" matTooltipShowDelay="1000">
           <mat-label>X Max</mat-label>
           <input matInput class="settings-input" [(ngModel)]="maxX" name="maxX" type="number" #maxXInput="ngModel"
-                 [min]="minX + 1" required />
+                 [min]="minX" required />
           <mat-error *ngIf="maxXInput.errors?.['required']">
             Value is required
           </mat-error>
@@ -107,7 +115,8 @@
             Value must be > X Min
           </mat-error>
         </mat-form-field>
-        <mat-form-field class="settings-form-field">
+        <mat-form-field class="settings-form-field"
+                        matTooltip="Step size for X slider" matTooltipShowDelay="1000">
           <mat-label>X Step</mat-label>
           <input matInput class="settings-input" [(ngModel)]="stepX" name="stepX" type="number" #stepXInput="ngModel"
                  min="0" required />
@@ -121,10 +130,11 @@
       </div>
 
       <div id="slope-settings" class="settings-row">
-        <mat-form-field class="settings-form-field">
+        <mat-form-field class="settings-form-field"
+                        matTooltip="Minimum value for slope slider" matTooltipShowDelay="1000">
           <mat-label>Slope Min</mat-label>
           <input matInput class="settings-input" [(ngModel)]="minSlope" name="minSlope" type="number" #minSlopeInput="ngModel"
-                 min="0" [max]="maxSlope - 1" required />
+                 min="0" [max]="maxSlope" required />
           <mat-error *ngIf="minSlopeInput.errors?.['required']">
             Value is required
           </mat-error>
@@ -135,10 +145,11 @@
             Value must be <= Slope Max
           </mat-error>
         </mat-form-field>
-        <mat-form-field class="settings-form-field">
+        <mat-form-field class="settings-form-field"
+                        matTooltip="Maximum value for slope slider" matTooltipShowDelay="1000">
           <mat-label>Slope Max</mat-label>
           <input matInput class="settings-input" [(ngModel)]="maxSlope" name="maxSlope" type="number" #maxSlopeInput="ngModel"
-                 [min]="minSlope + 1" max="100" required />
+                 [min]="minSlope" max="100" required />
           <mat-error *ngIf="maxSlopeInput.errors?.['required']">
             Value is required
           </mat-error>
@@ -149,7 +160,8 @@
             Value must be <= 100
           </mat-error>
         </mat-form-field>
-        <mat-form-field class="settings-form-field">
+        <mat-form-field class="settings-form-field"
+                        matTooltip="Step size for slope slider" matTooltipShowDelay="1000">
           <mat-label>Slope Step</mat-label>
           <input matInput class="settings-input" [(ngModel)]="stepSlope" name="stepSlope" type="number" #stepSlopeInput="ngModel"
                  min="0" required />
@@ -166,7 +178,8 @@
 
       <h4 class="section-title">Table Options</h4>
       <div id="table-settings" class="settings-row">
-        <mat-form-field class="settings-form-field">
+        <mat-form-field class="settings-form-field"
+                        matTooltip="Maximum number of digits displayed in table" matTooltipShowDelay="1000">
           <mat-label>Precision</mat-label>
           <mat-select [(ngModel)]="precision" name="precision" required>
             <mat-option [value]="1">1</mat-option>
@@ -177,12 +190,10 @@
             <mat-option [value]="6">6</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field class="settings-form-field">
+        <mat-form-field class="settings-form-field"
+                        matTooltip="Step between slope values displayed in table" matTooltipShowDelay="1000">
           <mat-label>Step</mat-label>
           <mat-select [(ngModel)]="tableStep" name="tableStep" required>
-            <mat-option [value]="0.001">0.001</mat-option>
-            <mat-option [value]="0.002">0.002</mat-option>
-            <mat-option [value]="0.005">0.005</mat-option>
             <mat-option [value]="0.01">0.01</mat-option>
             <mat-option [value]="0.02">0.02</mat-option>
             <mat-option [value]="0.05">0.05</mat-option>
@@ -190,6 +201,18 @@
             <mat-option [value]="0.2">0.2</mat-option>
             <mat-option [value]="0.5">0.5</mat-option>
             <mat-option [value]="1">1</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="settings-form-field"
+                        matTooltip="Maximum number of rows displayed in table" matTooltipShowDelay="1000">
+          <mat-label>Max # Rows</mat-label>
+          <mat-select [(ngModel)]="maxRows" name="maxRows" required>
+            <mat-option [value]="50">50</mat-option>
+            <mat-option [value]="100">100</mat-option>
+            <mat-option [value]="150">150</mat-option>
+            <mat-option [value]="200">200</mat-option>
+            <mat-option [value]="250">250</mat-option>
+            <mat-option [value]="500">500</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
