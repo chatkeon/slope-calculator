@@ -28,12 +28,12 @@ export class AppComponent implements OnInit {
     table: {
       precision: 2,
       step: 0.01,
-      maxRows: 150
+      maxRows: 50
     }
   };
   lastUpdatedVariable = 'y1';
   lockedVariable = 'y2';
-  tableFormat = '1.0-2';
+  tableFormat = '1.2-2';
 
   y1: number = 0.5;
   y2: number = 0.0;
@@ -50,6 +50,9 @@ export class AppComponent implements OnInit {
   slopeCalcX?: number;
   slopeCalc?: number;
 
+  formula1 = '(Y1 - Y2) / X = Slope';
+  formula2 = '(Y2 - Y1) / X = Slope';
+
   constructor(public dialog: MatDialog) {
     this.currentYear = new Date().getFullYear().toString();
   }
@@ -62,6 +65,17 @@ export class AppComponent implements OnInit {
     this.lastUpdatedVariable = this.lockedVariable;
     this.lockedVariable = variableName;
     this.updateTable();
+  }
+
+  getIcon(variableName: string): string {
+    let icon = 'change_circle';
+    if (this.lockedVariable === variableName) {
+      icon = 'lock';
+    } else if (this.lastUpdatedVariable === variableName) {
+      icon = 'lock_open';
+    }
+
+    return icon;
   }
 
   updateY1(newValue: number) {
@@ -118,7 +132,7 @@ export class AppComponent implements OnInit {
           this.maxSlope = Number(this.settings.slider.slope.max);
         }
 
-        this.tableFormat = `1.0-${this.settings.table.precision}`;
+        this.tableFormat = `1.${this.settings.table.precision}-${this.settings.table.precision}`;
         this.updateTable();
       }
     });

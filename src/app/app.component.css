@@ -94,6 +94,10 @@
   width: calc(100% - 32px);
 }
 
+#formula-container {
+  padding: 16px;
+}
+
 #truncated-table-message {
   display: block;
   width: calc(100% - 64px);
@@ -103,7 +107,6 @@
   border: 1px solid #263238;
   border-radius: 4px;
   background-color: #ECEFF1;
-  white-space: nowrap;
 }
 
 #truncated-table-message p {
@@ -136,6 +139,7 @@
 #slope-calc-inputs-container {
   display: flex;
   width: 100%;
+  flex-wrap: wrap;
 }
 
 .slope-calc-form-field {

@@ -12,6 +12,7 @@
       <mat-tab label="Variable">
         <div class="tab-container">
           <div id="instruction-text">
+            <!-- TODO: Expand instructions + add legend for icons -->
             <p>Use inputs or sliders to adjust values in the table below.</p>
             <p><i>Options for the sliders and table can be adjusted in
               <a href (click)="$event.preventDefault(); openSettingsDialog()">Settings</a>.</i></p>
@@ -24,7 +25,7 @@
                   <input matInput class="variable-input" [disabled]="lockedVariable === 'y1'" required
                          [ngModel]="y1" (ngModelChange)="updateY1($event)" />
                   <mat-icon matSuffix class="lock-icon" [ngClass]="{ locked: lockedVariable === 'y1' }"
-                            (click)="lock('y1')">{{ lockedVariable === 'y1' ? 'lock' : 'lock_open' }}</mat-icon>
+                            (click)="lock('y1')" matTooltip="Lock Y1">{{ getIcon('y1') }}</mat-icon>
                 </mat-form-field>
                 <div class="slider-container">
                   <mat-slider class="variable-slider" color="accent"
@@ -44,7 +45,7 @@
                   <input matInput class="variable-input" [disabled]="lockedVariable === 'y2'" required
                          [ngModel]="y2" (ngModelChange)="updateY2($event)" />
                   <mat-icon matSuffix class="lock-icon" [ngClass]="{ locked: lockedVariable === 'y2' }"
-                            (click)="lock('y2')">{{ lockedVariable === 'y2' ? 'lock' : 'lock_open' }}</mat-icon>
+                            (click)="lock('y2')" matToolip="Lock Y2">{{ getIcon('y2') }}</mat-icon>
                 </mat-form-field>
                 <div class="slider-container">
                   <mat-slider class="variable-slider" color="accent"
@@ -64,7 +65,7 @@
                   <input matInput class="variable-input" [disabled]="lockedVariable === 'x'" required
                          [ngModel]="x" (ngModelChange)="updateX($event)" />
                   <mat-icon matSuffix class="lock-icon" [ngClass]="{ locked: lockedVariable === 'x' }"
-                            (click)="lock('x')">{{ lockedVariable === 'x' ? 'lock' : 'lock_open' }}</mat-icon>
+                            (click)="lock('x')" matTooltip="Lock X">{{ getIcon('x') }}</mat-icon>
                 </mat-form-field>
                 <div class="slider-container">
                   <mat-slider class="variable-slider" color="accent"
@@ -104,6 +105,10 @@
           </div>
 
           <div id="table-container" *ngIf="tableRows.length > 0">
+            <div id="formula-container">
+              <p><b>Calculation:</b> {{ (tableRows[0].y1 > tableRows[0].y2) ? formula1 : formula2 }}</p>
+              <p><i>Note: Calculation based on first table row</i></p>
+            </div>
             <div id="truncated-table-message" *ngIf="truncatedTableRows">
               <p><i>Only displaying first {{ settings.table.maxRows }} rows. The maximum number of displayed rows
                 can be changed in <a href (click)="$event.preventDefault(); openSettingsDialog()">Settings</a>.</i></p>
