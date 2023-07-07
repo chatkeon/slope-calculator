@@ -12,8 +12,11 @@
       <mat-tab label="Variable">
         <div class="tab-container">
           <div id="instruction-text">
-            <!-- TODO: Expand instructions + add legend for icons -->
-            <p>Use inputs or sliders to adjust values in the table below.</p>
+            <p>
+              Use inputs or sliders to adjust values in the table below.
+              Click on the icon beside a variable to lock the value so it cannot be changed.
+              Edit one of the unlocked values to calculate the other unlocked value.
+            </p>
             <p><i>Options for the sliders and table can be adjusted in
               <a href (click)="$event.preventDefault(); openSettingsDialog()">Settings</a>.</i></p>
           </div>
@@ -26,6 +29,7 @@
                          [ngModel]="y1" (ngModelChange)="updateY1($event)" />
                   <mat-icon matSuffix class="lock-icon" [ngClass]="{ locked: lockedVariable === 'y1' }"
                             (click)="lock('y1')" matTooltip="Lock Y1">{{ getIcon('y1') }}</mat-icon>
+                  <mat-hint>{{ getHint('y1') }}</mat-hint>
                 </mat-form-field>
                 <div class="slider-container">
                   <mat-slider class="variable-slider" color="accent"
@@ -46,6 +50,7 @@
                          [ngModel]="y2" (ngModelChange)="updateY2($event)" />
                   <mat-icon matSuffix class="lock-icon" [ngClass]="{ locked: lockedVariable === 'y2' }"
                             (click)="lock('y2')" matToolip="Lock Y2">{{ getIcon('y2') }}</mat-icon>
+                  <mat-hint>{{ getHint('y2') }}</mat-hint>
                 </mat-form-field>
                 <div class="slider-container">
                   <mat-slider class="variable-slider" color="accent"
@@ -66,6 +71,7 @@
                          [ngModel]="x" (ngModelChange)="updateX($event)" />
                   <mat-icon matSuffix class="lock-icon" [ngClass]="{ locked: lockedVariable === 'x' }"
                             (click)="lock('x')" matTooltip="Lock X">{{ getIcon('x') }}</mat-icon>
+                  <mat-hint>{{ getHint('x') }}</mat-hint>
                 </mat-form-field>
                 <div class="slider-container">
                   <mat-slider class="variable-slider" color="accent"

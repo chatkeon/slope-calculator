@@ -34,6 +34,11 @@ export class AppComponent implements OnInit {
   lastUpdatedVariable = 'y1';
   lockedVariable = 'y2';
   tableFormat = '1.2-2';
+  hintTextMap: { [key: string]: string } = {
+    lock: 'Value locked',
+    edit: 'Value being edited',
+    change_circle: 'Value being calculated'
+  };
 
   y1: number = 0.5;
   y2: number = 0.0;
@@ -72,10 +77,15 @@ export class AppComponent implements OnInit {
     if (this.lockedVariable === variableName) {
       icon = 'lock';
     } else if (this.lastUpdatedVariable === variableName) {
-      icon = 'lock_open';
+      icon = 'edit';
     }
 
     return icon;
+  }
+
+  getHint(variableName: string): string {
+    const icon = this.getIcon(variableName);
+    return this.hintTextMap[icon];
   }
 
   updateY1(newValue: number) {

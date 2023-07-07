@@ -4,5 +4,6 @@ Simple site for calculating slopes in percentages based on 2 elevations (y value
 Intended for use by civil engineers.
 
 ## TODO
+- Clean-up/optimize code
 - Add unit tests
 
