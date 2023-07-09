@@ -8,7 +8,6 @@ import { Validator, NG_VALIDATORS, FormControl } from '@angular/forms'
   ]
 })
 export class GreaterThanDirective implements Validator {
-  // TODO: Figure out how to re-run validation on the control when the greaterThan input value changes
   @Input('greaterThan') greaterThanValue?: number;
 
   validate(control: FormControl) {

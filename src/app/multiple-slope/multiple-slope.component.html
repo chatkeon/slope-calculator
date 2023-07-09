@@ -1,76 +1,87 @@
 <div id="multiple-slope-container">
-  <form id="multiple-slope-inputs" #multipleSlopeInputsForm="ngForm">
-    <div id="multiple-slope-inputs-container">
-      <mat-form-field class="multiple-slope-form-field auto-width">
-        <mat-label>Elevation (Y1)</mat-label>
-        <input matInput type="number" min="0" [greaterThan]="0" required
-               #y1Input="ngModel" [(ngModel)]="y1" name="y1Input" />
-        <mat-error *ngIf="y1Input.errors?.['required']">
-          Value is required
-        </mat-error>
-        <mat-error *ngIf="y1Input.errors?.['greaterThanError']">
-          Value must be > 0
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="multiple-slope-form-field auto-width">
-        <mat-label>Elevation (Y2)</mat-label>
-        <input matInput type="number" min="0" [greaterThan]="y1" required
-               #y2Input="ngModel" [(ngModel)]="y2" name="y2Input" />
-        <mat-error *ngIf="y2Input.errors?.['required']">
-          Value is required
-        </mat-error>
-        <mat-error *ngIf="y2Input.errors?.['greaterThanError']">
-          Value must be > {{ y1 }}
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="multiple-slope-form-field auto-width">
-        <mat-label>Length (X)</mat-label>
-        <input matInput type="number" min="0" [greaterThan]="0" required
-               #xInput="ngModel" [(ngModel)]="x" name="xInput" />
-        <mat-error *ngIf="xInput.errors?.['required']">
-          Value is required
-        </mat-error>
-        <mat-error *ngIf="xInput.errors?.['greaterThanError']">
-          Value must be > 0
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="multiple-slope-form-field auto-width">
-        <mat-label>Minimum Allowed Slope</mat-label>
-        <input matInput type="number" min="0" [greaterThan]="0" required
-               #minSlopeInput="ngModel" [(ngModel)]="minSlope" name="minSlopeInput" />
-        <mat-error *ngIf="minSlopeInput.errors?.['required']">
-          Value is required
-        </mat-error>
-        <mat-error *ngIf="minSlopeInput.errors?.['greaterThanError']">
-          Value must be > 0
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="multiple-slope-form-field auto-width">
-        <mat-label>Maximum Allowed Slope</mat-label>
-        <input matInput type="number" min="0" [greaterThan]="minSlope" required
-               #maxSlopeInput="ngModel" [(ngModel)]="maxSlope" name="maxSlopeInput" />
-        <mat-error *ngIf="maxSlopeInput.errors?.['required']">
-          Value is required
-        </mat-error>
-        <mat-error *ngIf="maxSlopeInput.errors?.['greaterThanError']">
-          Value must be > {{ minSlope }}
-        </mat-error>
-      </mat-form-field>
-    </div>
-    <div id="multiple-slope-button-container">
-      <button mat-raised-button type="button" color="accent" [disabled]="multipleSlopeInputsForm.invalid"
-              (click)="generate()">Generate</button>
-      <button mat-button type="button" (click)="reset()">Reset</button>
-    </div>
-  </form>
+  <ng-container *ngIf="showForm">
+    <form id="multiple-slope-inputs" #inputsForm="ngForm">
+      <div id="multiple-slope-inputs-container">
+        <mat-form-field class="multiple-slope-form-field auto-width">
+          <mat-label>Elevation (Y1)</mat-label>
+          <input matInput type="number" min="0" [greaterThan]="0" required
+                #y1Input="ngModel" [(ngModel)]="y1" name="y1Input" />
+          <mat-error *ngIf="y1Input.errors?.['required']">
+            Value is required
+          </mat-error>
+          <mat-error *ngIf="y1Input.errors?.['greaterThanError']">
+            Value must be > 0
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="multiple-slope-form-field auto-width">
+          <mat-label>Elevation (Y2)</mat-label>
+          <input matInput type="number" min="0" [greaterThan]="y1" required
+                #y2Input="ngModel" [(ngModel)]="y2" name="y2Input" />
+          <mat-error *ngIf="y2Input.errors?.['required']">
+            Value is required
+          </mat-error>
+          <mat-error *ngIf="y2Input.errors?.['greaterThanError']">
+            Value must be > {{ y1 }}
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="multiple-slope-form-field auto-width">
+          <mat-label>Length (X)</mat-label>
+          <input matInput type="number" min="0" [greaterThan]="0" required
+                #xInput="ngModel" [(ngModel)]="x" name="xInput" />
+          <mat-error *ngIf="xInput.errors?.['required']">
+            Value is required
+          </mat-error>
+          <mat-error *ngIf="xInput.errors?.['greaterThanError']">
+            Value must be > 0
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="multiple-slope-form-field auto-width">
+          <mat-label>Minimum Allowed Slope</mat-label>
+          <input matInput type="number" min="0" [greaterThan]="0" required
+                #minSlopeInput="ngModel" [(ngModel)]="minSlope" name="minSlopeInput" />
+          <mat-error *ngIf="minSlopeInput.errors?.['required']">
+            Value is required
+          </mat-error>
+          <mat-error *ngIf="minSlopeInput.errors?.['greaterThanError']">
+            Value must be > 0
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="multiple-slope-form-field auto-width">
+          <mat-label>Maximum Allowed Slope</mat-label>
+          <input matInput type="number" min="0" [greaterThan]="minSlope" required
+                #maxSlopeInput="ngModel" [(ngModel)]="maxSlope" name="maxSlopeInput" />
+          <mat-error *ngIf="maxSlopeInput.errors?.['required']">
+            Value is required
+          </mat-error>
+          <mat-error *ngIf="maxSlopeInput.errors?.['greaterThanError']">
+            Value must be > {{ minSlope }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <button mat-raised-button id="start-button" type="button" color="accent"
+              [disabled]="inputsForm.invalid" (click)="generateTable()">Start</button>
+    </form>
+  </ng-container>
 
-  <ng-container *ngIf="tableRows.length > 0">
-    <mat-divider></mat-divider>
+  <mat-progress-bar id="progress-bar" mode="indeterminate" *ngIf="loading"></mat-progress-bar>
 
+  <ng-container *ngIf="!loading && tableRows.length > 0">
     <div id="totals-container">
-      <p class="total-text">Elevation (Y1): <span [ngClass]="{ warn: totalY1! != y1! }">{{ totalY1 }}</span></p>
-      <p class="total-text">Elevation (Y2): <span [ngClass]="{ warn: totalY2! != y2! }">{{ totalY2 }}</span></p>
-      <p class="total-text">Length (X): <span [ngClass]="{ warn: totalX! != x! }">{{ totalX }}</span></p>
+      <div class="total-text">
+        <p><b>Elevation (Y1)</b></p>
+        <p>Target: {{ y1 }}</p>
+        <p>Current: <span [ngClass]="{ warn: totalY1! != y1! }">{{ totalY1 }}</span></p>
+      </div>
+      <div class="total-text">
+        <p><b>Elevation (Y2)</b></p>
+        <p>Target: {{ y2 }}</p>
+        <p>Current: <span [ngClass]="{ warn: totalY2! != y2! }">{{ totalY2 }}</span></p>
+      </div>
+      <div class="total-text">
+        <p><b>Length (X)</b></p>
+        <p>Target: {{ x }}</p>
+        <p>Current: <span [ngClass]="{ warn: totalX! != x! }">{{ totalX }}</span></p>
+      </div>
     </div>
 
     <div id="table-container">
@@ -96,12 +107,14 @@
             <input matInput type="number" [min]="minSlope!" [max]="maxSlope!" required
                   [ngModel]="row.slope" name="{{ i }}-slope" (ngModelChange)="updateRowSlope(i, $event)" />
           </mat-form-field>
-          <button class="delete-button" mat-icon-button color="warn" (click)="deleteRow(i)">
+          <button class="delete-button" mat-icon-button color="warn" [disabled]="this.tableRows.length === 1"
+                  (click)="deleteRow(i)" matTooltip="Delete row">
             <mat-icon>remove</mat-icon>
           </button>
         </div>
       </form>
       <button mat-raised-button type="button" color="accent" (click)="addRow()">Add row</button>
+      <button mat-button id="reset-button" type="button" (click)="reset()">Reset</button>
     </div>
   </ng-container>
 </div>

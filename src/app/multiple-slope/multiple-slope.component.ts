@@ -12,6 +12,9 @@ import { MultipleSlopeRow } from '../models/multiple-slope-row.models';
 export class MultipleSlopeComponent {
   private decimalPipe: DecimalPipe = new DecimalPipe('en-US');
 
+  showForm: boolean = true;
+  loading: boolean = false;
+
   y1?: number;
   y2?: number;
   x?: number;
@@ -23,7 +26,7 @@ export class MultipleSlopeComponent {
   totalX?: number;
   tableRows: MultipleSlopeRow[] = [];
 
-  @ViewChild('tableForm') tableForm!: NgForm;
+  @ViewChild('tableForm') tableForm?: NgForm;
 
   reset() {
     this.y1 = undefined;
@@ -31,12 +34,19 @@ export class MultipleSlopeComponent {
     this.x = undefined;
     this.minSlope = undefined;
     this.maxSlope = undefined;
+    this.totalY1 = undefined;
+    this.totalY2 = undefined;
+    this.totalX = undefined;
     this.tableRows = [];
+    this.loading = false;
+    this.showForm = true;
   }
 
-  generate() {
+  generateTable() {
     // TODO: Validate inputs
 
+    this.showForm = false;
+    this.loading = true;
     this.tableRows = [];
 
     const calcHeight = this.x! * this.maxSlope!;
@@ -54,16 +64,20 @@ export class MultipleSlopeComponent {
     }
 
     this.updateTotals();
+
+    this.loading = false;
   }
 
   updateRowY1(index: number, newValue: number) {
     this.tableRows[index].y1 = Number(newValue);
     this.tableRows[index].calculateSlope();
+    this.updateControl(`${index}-y2`);
 
     // Propagate change to previous row
     if (index > 0) {
       this.tableRows[index - 1].y2 = Number(newValue);
       this.tableRows[index - 1].calculateSlope();
+      this.updateControl(`${index - 1}-y1`);
     }
 
     this.updateTotals();
@@ -72,11 +86,13 @@ export class MultipleSlopeComponent {
   updateRowY2(index: number, newValue: number) {
     this.tableRows[index].y2 = Number(newValue);
     this.tableRows[index].calculateSlope();
+    this.updateControl(`${index}-y1`);
 
     // Propagate change to next row
     if (index < this.tableRows.length - 1) {
       this.tableRows[index + 1].y1 = Number(newValue);
       this.tableRows[index + 1].calculateSlope();
+      this.updateControl(`${index + 1}-y2`);
     }
 
     this.updateTotals();
@@ -138,10 +154,23 @@ export class MultipleSlopeComponent {
       if (this.tableForm) {
         this.tableForm.form.markAllAsTouched();
       }
-    }, 1000);
+    }, 500);
   }
 
   private roundTo2(value: number): number {
     return Number(this.decimalPipe.transform(value, '1.2-2'));
+  }
+
+  private updateControl(key: string) {
+    if (this.tableForm) {
+      console.log(this.tableForm);
+      const control = this.tableForm.form.get(key);
+      if (control) {
+        // Use timeout to ensure form control state updates immediately
+        setTimeout(() => {
+          control.updateValueAndValidity();
+        }, 500);
+      }
+    }
   }
 }
