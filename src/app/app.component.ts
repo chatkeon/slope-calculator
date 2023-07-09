@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { SettingsDialogComponent } from './settings-dialog/settings-dialog.component';
-import { Settings } from './settings.model';
+import { Settings } from './models/settings.model';
 
 declare interface TableRow {
   y1: number;

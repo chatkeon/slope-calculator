@@ -20,12 +20,17 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { AppComponent } from './app.component';
+import { MultipleSlopeComponent } from './multiple-slope/multiple-slope.component';
 import { SettingsDialogComponent } from './settings-dialog/settings-dialog.component';
+
+import { GreaterThanDirective } from './greater-than.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SettingsDialogComponent
+    MultipleSlopeComponent,
+    SettingsDialogComponent,
+    GreaterThanDirective
   ],
   imports: [
     BrowserModule,

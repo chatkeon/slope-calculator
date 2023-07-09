@@ -2,7 +2,7 @@ import { Component, AfterViewInit, Inject, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { Settings } from '../settings.model';
+import { Settings } from '../models/settings.model';
 
 @Component({
   selector: 'app-settings-dialog',

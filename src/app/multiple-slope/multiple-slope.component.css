@@ -1,0 +1,46 @@
+#multiple-slope-container {
+  padding: 16px;
+}
+
+#multiple-slope-inputs-container {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.multiple-slope-form-field {
+  flex: 1 0 auto;
+  padding: 0 4px;
+}
+
+#multiple-slope-button-container {
+  margin-bottom: 16px;
+}
+
+#totals-container {
+  padding: 16px 0;
+}
+
+.total-text .warn {
+  color: red;
+}
+
+#table-container {
+  display: block;
+}
+
+.table-row {
+  display: flex;
+  width: 100%;
+  flex-wrap: nowrap;
+}
+
+.table-form-field {
+  flex: 1 0 auto;
+  padding: 0 4px;
+}
+
+.delete-button {
+  flex: 0 0 auto;
+  padding: 0 4px;
+}

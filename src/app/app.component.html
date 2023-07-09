@@ -156,31 +156,31 @@
             <div id="slope-calc-inputs-container">
               <mat-form-field class="slope-calc-form-field auto-width">
                 <mat-label>Elevation (Y1)</mat-label>
-                <input matInput type="number" min="0" pattern="([0-9]?\.[0-9]*)?[1-9]\d*" required
+                <input matInput type="number" min="0" [greaterThan]="0" required
                        #slopeCalcY1Input="ngModel" [(ngModel)]="slopeCalcY1" name="slopeCalcY1" />
                 <mat-error *ngIf="slopeCalcY1Input.errors?.['required']">
                   Value is required
                 </mat-error>
-                <mat-error *ngIf="slopeCalcY1Input.errors?.['pattern']">
+                <mat-error *ngIf="slopeCalcY1Input.errors?.['greaterThanError']">
                   Value must be > 0
                 </mat-error>
               </mat-form-field>
               <mat-form-field class="slope-calc-form-field auto-width">
                 <mat-label>Elevation (Y2)</mat-label>
-                <input matInput type="number" min="0" pattern="([0-9]?\.[0-9]*)?[1-9]\d*"
+                <input matInput type="number" min="0" [greaterThan]="0"
                        #slopeCalcY2Input="ngModel" [(ngModel)]="slopeCalcY2" name="slopeCalcY2" />
-                <mat-error *ngIf="slopeCalcY2Input.errors?.['pattern']">
+                <mat-error *ngIf="slopeCalcY2Input.errors?.['greaterThanError']">
                   Value must be > 0
                 </mat-error>
               </mat-form-field>
               <mat-form-field class="slope-calc-form-field auto-width">
                 <mat-label>Length (X)</mat-label>
-                <input matInput type="number" min="0" pattern="([0-9]?\.[0-9]*)?[1-9]\d*" required
+                <input matInput type="number" min="0" [greaterThan]="0" required
                        #slopeCalcXInput="ngModel" [(ngModel)]="slopeCalcX" name="slopeCalcX" />
                 <mat-error *ngIf="slopeCalcXInput.errors?.['required']">
                   Value is required
                 </mat-error>
-                <mat-error *ngIf="slopeCalcXInput.errors?.['pattern']">
+                <mat-error *ngIf="slopeCalcXInput.errors?.['greaterThanError']">
                   Value must be > 0
                 </mat-error>
               </mat-form-field>
@@ -191,6 +191,11 @@
               <p id="slope-calc-value" *ngIf="slopeCalc">Slope = {{ slopeCalc / 100 }}%</p>
             </div>
           </form>
+        </div>
+      </mat-tab>
+      <mat-tab label="Multiple">
+        <div class="tab-container">
+          <app-multiple-slope></app-multiple-slope>
         </div>
       </mat-tab>
     </mat-tab-group>

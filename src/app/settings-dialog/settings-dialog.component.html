@@ -16,30 +16,30 @@
             Value must be >= 0
           </mat-error>
           <mat-error *ngIf="minY1Input.errors?.['max']">
-            Value must be <= Y1 Max
+            Value must be <= {{ maxY1 }}
           </mat-error>
         </mat-form-field>
         <mat-form-field class="settings-form-field"
                         matTooltip="Maximum value for Y1 slider" matTooltipShowDelay="1000">
           <mat-label>Y1 Max</mat-label>
           <input matInput class="settings-input" [(ngModel)]="maxY1" name="maxY1" type="number" #maxY1Input="ngModel"
-                 [min]="minY1" required />
+                 min="0" [greaterThan]="minY1" required />
           <mat-error *ngIf="maxY1Input.errors?.['required']">
             Value is required
           </mat-error>
-          <mat-error *ngIf="maxY1Input.errors?.['min']">
-            Value must be > Y1 Min
+          <mat-error *ngIf="maxY1Input.errors?.['greaterThanError']">
+            Value must be > {{ minY1 }}
           </mat-error>
         </mat-form-field>
         <mat-form-field class="settings-form-field"
                         matTooltip="Step size for Y1 slider" matTooltipShowDelay="1000">
           <mat-label>Y1 Step</mat-label>
           <input matInput class="settings-input" [(ngModel)]="stepY1" name="stepY1" type="number" #stepY1Input="ngModel"
-                 min="0" pattern="([0-9]?\.[0-9]*)?[1-9]\d*" required />
+                 min="0" [greaterThan]="0" required />
           <mat-error *ngIf="stepY1Input.errors?.['required']">
             Value is required
           </mat-error>
-          <mat-error *ngIf="stepY1Input.errors?.['pattern']">
+          <mat-error *ngIf="stepY1Input.errors?.['greaterThanError']">
             Value must be > 0
           </mat-error>
         </mat-form-field>
@@ -58,30 +58,30 @@
             Value must be >= 0
           </mat-error>
           <mat-error *ngIf="minY2Input.errors?.['max']">
-            Value must be <= Y2 Max
+            Value must be <= {{ maxY2 }}
           </mat-error>
         </mat-form-field>
         <mat-form-field class="settings-form-field"
                         matTooltip="Maximum value for Y2 slider" matTooltipShowDelay="1000">
           <mat-label>Y2 Max</mat-label>
           <input matInput class="settings-input" [(ngModel)]="maxY2" name="maxY2" type="number" #maxY2Input="ngModel"
-                 [min]="minY2" required />
+                 min="0" [greaterThan]="minY2" required />
           <mat-error *ngIf="maxY2Input.errors?.['required']">
             Value is required
           </mat-error>
-          <mat-error *ngIf="maxY2Input.errors?.['min']">
-            Value must be > Y2 Min
+          <mat-error *ngIf="maxY2Input.errors?.['greaterThanError']">
+            Value must be > {{ minY2 }}
           </mat-error>
         </mat-form-field>
         <mat-form-field class="settings-form-field"
                         matTooltip="Step size for Y2 slider" matTooltipShowDelay="1000">
           <mat-label>Y2 Step</mat-label>
           <input matInput class="settings-input" [(ngModel)]="stepY2" name="stepY2" type="number" #stepY2Input="ngModel"
-                 min="0" pattern="([0-9]?\.[0-9]*)?[1-9]\d*" required />
+                 min="0" [greaterThan]="0" required />
           <mat-error *ngIf="stepY2Input.errors?.['required']">
             Value is required
           </mat-error>
-          <mat-error *ngIf="stepY2Input.errors?.['pattern']">
+          <mat-error *ngIf="stepY2Input.errors?.['greaterThanError']">
             Value must be > 0
           </mat-error>
         </mat-form-field>
@@ -100,30 +100,30 @@
             Value must be >= 0
           </mat-error>
           <mat-error *ngIf="minXInput.errors?.['max']">
-            Value must be <= X Max
+            Value must be <= {{ maxX }}
           </mat-error>
         </mat-form-field>
         <mat-form-field class="settings-form-field"
                         matTooltip="Maximum value for X slider" matTooltipShowDelay="1000">
           <mat-label>X Max</mat-label>
           <input matInput class="settings-input" [(ngModel)]="maxX" name="maxX" type="number" #maxXInput="ngModel"
-                 [min]="minX" required />
+                 min="0" [greaterThan]="minX" required />
           <mat-error *ngIf="maxXInput.errors?.['required']">
             Value is required
           </mat-error>
-          <mat-error *ngIf="maxXInput.errors?.['min']">
-            Value must be > X Min
+          <mat-error *ngIf="maxXInput.errors?.['greaterThanError']">
+            Value must be > {{ minX }}
           </mat-error>
         </mat-form-field>
         <mat-form-field class="settings-form-field"
                         matTooltip="Step size for X slider" matTooltipShowDelay="1000">
           <mat-label>X Step</mat-label>
           <input matInput class="settings-input" [(ngModel)]="stepX" name="stepX" type="number" #stepXInput="ngModel"
-                 min="0" pattern="([0-9]?\.[0-9]*)?[1-9]\d*" required />
+                 min="0" [greaterThan]="0" required />
           <mat-error *ngIf="stepXInput.errors?.['required']">
             Value is required
           </mat-error>
-          <mat-error *ngIf="stepXInput.errors?.['patttern']">
+          <mat-error *ngIf="stepXInput.errors?.['greaterThanError']">
             Value must be > 0
           </mat-error>
         </mat-form-field>
@@ -142,18 +142,18 @@
             Value must be >= 0
           </mat-error>
           <mat-error *ngIf="minSlopeInput.errors?.['max']">
-            Value must be <= Slope Max
+            Value must be <= {{ maxSlope }}
           </mat-error>
         </mat-form-field>
         <mat-form-field class="settings-form-field"
                         matTooltip="Maximum value for slope slider" matTooltipShowDelay="1000">
           <mat-label>Slope Max</mat-label>
           <input matInput class="settings-input" [(ngModel)]="maxSlope" name="maxSlope" type="number" #maxSlopeInput="ngModel"
-                 [min]="minSlope" max="100" required />
+                 min="0" [greaterThan]="minSlope" max="100" required />
           <mat-error *ngIf="maxSlopeInput.errors?.['required']">
             Value is required
           </mat-error>
-          <mat-error *ngIf="maxSlopeInput.errors?.['min']">
+          <mat-error *ngIf="maxSlopeInput.errors?.['greaterThanError']">
             Value must be > Slope Min
           </mat-error>
           <mat-error *ngIf="maxSlopeInput.errors?.['max']">
@@ -164,11 +164,11 @@
                         matTooltip="Step size for slope slider" matTooltipShowDelay="1000">
           <mat-label>Slope Step</mat-label>
           <input matInput class="settings-input" [(ngModel)]="stepSlope" name="stepSlope" type="number" #stepSlopeInput="ngModel"
-                 min="0" pattern="([0-9]?\.[0-9]*)?[1-9]\d*" required />
+                 min="0" [greaterThan]="0" required />
           <mat-error *ngIf="stepSlopeInput.errors?.['required']">
             Value is required
           </mat-error>
-          <mat-error *ngIf="stepSlopeInput.errors?.['pattern']">
+          <mat-error *ngIf="stepSlopeInput.errors?.['greaterThanError']">
             Value must be > 0
           </mat-error>
         </mat-form-field>
