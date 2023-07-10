@@ -1,9 +1,9 @@
 # Slope Calculator
 
-Simple site for calculating slopes in percentages based on 2 elevations (y values) and a length (x value).
+Simple site for calculating slopes in various forms.
 Intended for use by civil engineers.
 
 ## TODO
-- Fix handling when input to greaterThan directive changes - need to explicitly update dependent form controls
+- Expand settings
 - Clean-up/optimize code
 - Add unit tests

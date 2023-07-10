@@ -21,15 +21,19 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { AppComponent } from './app.component';
-import { MultipleSlopeComponent } from './multiple-slope/multiple-slope.component';
+import { SteppedSlopeComponent } from './stepped-slope/stepped-slope.component';
+import { RangedSlopeComponent } from './ranged-slope/ranged-slope.component';
 import { SettingsDialogComponent } from './settings-dialog/settings-dialog.component';
+
+import { SettingsService } from './settings.service';
 
 import { GreaterThanDirective } from './greater-than.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MultipleSlopeComponent,
+    SteppedSlopeComponent,
+    RangedSlopeComponent,
     SettingsDialogComponent,
     GreaterThanDirective
   ],
@@ -54,7 +58,7 @@ import { GreaterThanDirective } from './greater-than.directive';
     MatToolbarModule,
     MatTooltipModule
   ],
-  providers: [],
+  providers: [SettingsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -5,16 +5,17 @@ export interface Slider {
 }
 
 export interface Settings {
-  slider: {
-    y1: Slider;
-    y2: Slider;
-    x: Slider;
-    slope: Slider;
-  };
-
-  table: {
-    precision: number;
-    step: number;
-    maxRows: number;
+  rangedSlope: {
+    slider: {
+      y1: Slider;
+      y2: Slider;
+      x: Slider;
+      slope: Slider;
+    };
+    table: {
+      precision: number;
+      step: number;
+      maxRows: number;
+    }
   }
 }

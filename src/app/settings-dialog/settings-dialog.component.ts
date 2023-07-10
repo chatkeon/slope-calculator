@@ -22,29 +22,29 @@ export class SettingsDialogComponent implements AfterViewInit {
   minSlope: number;
   maxSlope: number;
   stepSlope: number;
-  precision: number;
+  rangedPrecision: number;
   tableStep: number;
   maxRows: number;
 
   @ViewChild('settingsForm') settingsForm!: NgForm;
 
   constructor(public dialogRef: MatDialogRef<SettingsDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: Settings) {
-    this.minY1 = data.slider.y1.min;
-    this.maxY1 = data.slider.y1.max;
-    this.stepY1 = data.slider.y1.step;
-    this.minY2 = data.slider.y2.min;
-    this.maxY2 = data.slider.y2.max;
-    this.stepY2 = data.slider.y2.step;
-    this.minX = data.slider.x.min;
-    this.maxX = data.slider.x.max;
-    this.stepX = data.slider.x.step;
-    this.minSlope = data.slider.slope.min;
-    this.maxSlope = data.slider.slope.max;
-    this.stepSlope = data.slider.slope.step;
+    this.minY1 = data.rangedSlope.slider.y1.min;
+    this.maxY1 = data.rangedSlope.slider.y1.max;
+    this.stepY1 = data.rangedSlope.slider.y1.step;
+    this.minY2 = data.rangedSlope.slider.y2.min;
+    this.maxY2 = data.rangedSlope.slider.y2.max;
+    this.stepY2 = data.rangedSlope.slider.y2.step;
+    this.minX = data.rangedSlope.slider.x.min;
+    this.maxX = data.rangedSlope.slider.x.max;
+    this.stepX = data.rangedSlope.slider.x.step;
+    this.minSlope = data.rangedSlope.slider.slope.min;
+    this.maxSlope = data.rangedSlope.slider.slope.max;
+    this.stepSlope = data.rangedSlope.slider.slope.step;
 
-    this.precision = data.table.precision;
-    this.tableStep = data.table.step;
-    this.maxRows = data.table.maxRows;
+    this.rangedPrecision = data.rangedSlope.table.precision;
+    this.tableStep = data.rangedSlope.table.step;
+    this.maxRows = data.rangedSlope.table.maxRows;
   }
 
   ngAfterViewInit() {
@@ -56,16 +56,18 @@ export class SettingsDialogComponent implements AfterViewInit {
 
   save() {
     const updatedSettings: Settings = {
-      slider: {
-        y1: { min: this.minY1, max: this.maxY1, step: this.stepY1 },
-        y2: { min: this.minY2, max: this.maxY2, step: this.stepY2 },
-        x: { min: this.minX, max: this.maxX, step: this.stepX },
-        slope: { min: this.minSlope, max: this.maxSlope, step: this.stepSlope }
-      },
-      table: {
-        precision: this.precision,
-        step: this.tableStep,
-        maxRows: this.maxRows
+      rangedSlope: {
+        slider: {
+          y1: { min: this.minY1, max: this.maxY1, step: this.stepY1 },
+          y2: { min: this.minY2, max: this.maxY2, step: this.stepY2 },
+          x: { min: this.minX, max: this.maxX, step: this.stepX },
+          slope: { min: this.minSlope, max: this.maxSlope, step: this.stepSlope }
+        },
+        table: {
+          precision: this.rangedPrecision,
+          step: this.tableStep,
+          maxRows: this.maxRows
+        }
       }
     };
 

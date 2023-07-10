@@ -2,6 +2,7 @@
   <h1 mat-dialog-title>Settings</h1>
   <div mat-dialog-content>
     <form #settingsForm="ngForm" id="settings-form">
+      <h2>Ranged Slope</h2>
       <h4 class="section-title">Slider Options</h4>
       <div id="y1-settings" class="settings-row">
         <mat-form-field class="settings-form-field"
@@ -174,14 +175,12 @@
         </mat-form-field>
       </div>
 
-      <mat-divider></mat-divider>
-
       <h4 class="section-title">Table Options</h4>
       <div id="table-settings" class="settings-row">
         <mat-form-field class="settings-form-field"
                         matTooltip="Maximum number of digits displayed in table" matTooltipShowDelay="1000">
           <mat-label>Precision</mat-label>
-          <mat-select [(ngModel)]="precision" name="precision" required>
+          <mat-select [(ngModel)]="rangedPrecision" name="rangedPrecision" required>
             <mat-option [value]="1">1</mat-option>
             <mat-option [value]="2">2</mat-option>
             <mat-option [value]="3">3</mat-option>
@@ -207,12 +206,11 @@
                         matTooltip="Maximum number of rows displayed in table" matTooltipShowDelay="1000">
           <mat-label>Max # Rows</mat-label>
           <mat-select [(ngModel)]="maxRows" name="maxRows" required>
-            <mat-option [value]="50">50</mat-option>
+            <mat-option [value]="20">20</mat-option>
+            <mat-option [value]="40">40</mat-option>
+            <mat-option [value]="60">60</mat-option>
+            <mat-option [value]="80">80</mat-option>
             <mat-option [value]="100">100</mat-option>
-            <mat-option [value]="150">150</mat-option>
-            <mat-option [value]="200">200</mat-option>
-            <mat-option [value]="250">250</mat-option>
-            <mat-option [value]="500">500</mat-option>
           </mat-select>
         </mat-form-field>
       </div>

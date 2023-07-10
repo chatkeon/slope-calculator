@@ -9,148 +9,7 @@
 <div id="main">
   <mat-card class="card">
     <mat-tab-group>
-      <mat-tab label="Variable">
-        <div class="tab-container">
-          <div id="instruction-text">
-            <p>
-              Use inputs or sliders to adjust values in the table below.
-              Click on the icon beside a variable to lock the value so it cannot be changed.
-              Edit one of the unlocked values to calculate the other unlocked value.
-            </p>
-            <p><i>Options for the sliders and table can be adjusted in
-              <a href (click)="$event.preventDefault(); openSettingsDialog()">Settings</a>.</i></p>
-          </div>
-          <div id="inputs-container">
-            <div id="y1-input">
-              <div class="variable-container">
-                <mat-form-field class="variable-form-field auto-width">
-                  <mat-label>Elevation (Y1)</mat-label>
-                  <input matInput class="variable-input" [disabled]="lockedVariable === 'y1'" required
-                         [ngModel]="y1" (ngModelChange)="updateY1($event)" />
-                  <mat-icon matSuffix class="lock-icon" [ngClass]="{ locked: lockedVariable === 'y1' }"
-                            (click)="lock('y1')" matTooltip="Lock Y1">{{ getIcon('y1') }}</mat-icon>
-                  <mat-hint>{{ getHint('y1') }}</mat-hint>
-                </mat-form-field>
-                <div class="slider-container">
-                  <mat-slider class="variable-slider" color="accent"
-                              [min]="settings.slider.y1.min" [max]="settings.slider.y1.max"
-                              [step]="settings.slider.y1.step">
-                    <input matSliderThumb [disabled]="lockedVariable === 'y1'"
-                           [ngModel]="y1" (ngModelChange)="updateY1($event)">
-                  </mat-slider>
-                </div>
-              </div>
-            </div>
-
-            <div id="y2-input">
-              <div class="variable-container">
-                <mat-form-field class="variable-form-field auto-width">
-                  <mat-label>Elevation (Y2)</mat-label>
-                  <input matInput class="variable-input" [disabled]="lockedVariable === 'y2'" required
-                         [ngModel]="y2" (ngModelChange)="updateY2($event)" />
-                  <mat-icon matSuffix class="lock-icon" [ngClass]="{ locked: lockedVariable === 'y2' }"
-                            (click)="lock('y2')" matToolip="Lock Y2">{{ getIcon('y2') }}</mat-icon>
-                  <mat-hint>{{ getHint('y2') }}</mat-hint>
-                </mat-form-field>
-                <div class="slider-container">
-                  <mat-slider class="variable-slider" color="accent"
-                              [min]="settings.slider.y2.min" [max]="settings.slider.y2.max"
-                              [step]="settings.slider.y2.step">
-                    <input matSliderThumb [disabled]="lockedVariable === 'y2'"
-                           [ngModel]="y2" (ngModelChange)="updateY2($event)">
-                  </mat-slider>
-                </div>
-              </div>
-            </div>
-
-            <div id="x-input">
-              <div class="variable-container">
-                <mat-form-field class="variable-form-field auto-width">
-                  <mat-label>Length (X)</mat-label>
-                  <input matInput class="variable-input" [disabled]="lockedVariable === 'x'" required
-                         [ngModel]="x" (ngModelChange)="updateX($event)" />
-                  <mat-icon matSuffix class="lock-icon" [ngClass]="{ locked: lockedVariable === 'x' }"
-                            (click)="lock('x')" matTooltip="Lock X">{{ getIcon('x') }}</mat-icon>
-                  <mat-hint>{{ getHint('x') }}</mat-hint>
-                </mat-form-field>
-                <div class="slider-container">
-                  <mat-slider class="variable-slider" color="accent"
-                              [min]="settings.slider.x.min" [max]="settings.slider.x.max"
-                              [step]="settings.slider.x.step">
-                    <input matSliderThumb [disabled]="lockedVariable === 'x'"
-                           [ngModel]="x" (ngModelChange)="updateX($event)">
-                  </mat-slider>
-                </div>
-              </div>
-            </div>
-
-            <div id="slope-input">
-              <div class="variable-container">
-                <div class="slope-container">
-                  <mat-form-field class="slope-form-field auto-width">
-                    <mat-label>Slope Min (%)</mat-label>
-                    <input matInput class="slope-input" required
-                           [ngModel]="minSlope" (ngModelChange)="updateMinSlope($event)" />
-                  </mat-form-field>
-                  <mat-form-field class="slope-form-field auto-width">
-                    <mat-label>Slope Max (%)</mat-label>
-                    <input matInput class="slope-input" required
-                           [ngModel]="maxSlope" (ngModelChange)="updateMaxSlope($event)" />
-                  </mat-form-field>
-                </div>
-                <div class="slider-container">
-                  <mat-slider class="variable-slider" color="accent"
-                              [min]="settings.slider.slope.min" [max]="settings.slider.slope.max"
-                              [step]="settings.slider.slope.step">
-                    <input matSliderStartThumb [ngModel]="minSlope" (ngModelChange)="updateMinSlope($event)">
-                    <input matSliderEndThumb [ngModel]="maxSlope" (ngModelChange)="updateMaxSlope($event)">
-                  </mat-slider>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div id="table-container" *ngIf="tableRows.length > 0">
-            <div id="formula-container">
-              <p><b>Calculation:</b> {{ (tableRows[0].y1 > tableRows[0].y2) ? formula1 : formula2 }}</p>
-              <p><i>Note: Calculation based on first table row</i></p>
-            </div>
-            <div id="truncated-table-message" *ngIf="truncatedTableRows">
-              <p><i>Only displaying first {{ settings.table.maxRows }} rows. The maximum number of displayed rows
-                can be changed in <a href (click)="$event.preventDefault(); openSettingsDialog()">Settings</a>.</i></p>
-            </div>
-            <div id="table-scroll-container">
-              <table id="table" mat-table [dataSource]="tableRows">
-
-                <ng-container matColumnDef="y1">
-                  <th mat-header-cell *matHeaderCellDef class="table-cell"> Elevation (Y1) </th>
-                  <td mat-cell *matCellDef="let item" class="table-cell"> {{ item.y1 | number:tableFormat }} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="y2">
-                  <th mat-header-cell *matHeaderCellDef class="table-cell"> Elevation (Y2) </th>
-                  <td mat-cell *matCellDef="let item" class="table-cell"> {{ item.y2 | number:tableFormat }} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="x">
-                  <th mat-header-cell *matHeaderCellDef class="table-cell"> Length (X) </th>
-                  <td mat-cell *matCellDef="let item" class="table-cell"> {{ item.x | number:tableFormat }} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="slope">
-                  <th mat-header-cell *matHeaderCellDef class="table-cell"> Slope (%) </th>
-                  <td mat-cell *matCellDef="let item" class="table-cell"> {{ (item.slope * 100) | number:tableFormat }} </td>
-                </ng-container>
-
-                <tr mat-header-row *matHeaderRowDef="displayedColumns" class="table-header-row"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
-              </table>
-            </div>
-          </div>
-        </div>
-      </mat-tab>
-
-      <mat-tab label="Exact">
+      <mat-tab label="Single Slope">
         <div class="tab-container">
           <form id="slope-form" #slopeForm="ngForm">
             <div id="slope-calc-inputs-container">
@@ -193,9 +52,16 @@
           </form>
         </div>
       </mat-tab>
-      <mat-tab label="Multiple">
+
+      <mat-tab label="Stepped Slope">
         <div class="tab-container">
-          <app-multiple-slope></app-multiple-slope>
+          <app-stepped-slope></app-stepped-slope>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Ranged Slope">
+        <div class="tab-container">
+          <app-ranged-slope></app-ranged-slope>
         </div>
       </mat-tab>
     </mat-tab-group>

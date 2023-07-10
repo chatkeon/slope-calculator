@@ -1,0 +1,47 @@
+<div id="stepped-slope-container">
+  <div id="totals-container">
+    <div class="total-text">
+      <p><b>Elevation (Y1):</b> {{ totalY1 }}</p>
+    </div>
+    <div class="total-text">
+      <p><b>Elevation (Y2):</b> {{ totalY2 }}</p>
+    </div>
+    <div class="total-text">
+      <p><b>Length (X):</b> {{ totalX }}</p>
+    </div>
+  </div>
+
+  <div id="table-container">
+    <form id="table-form" #tableForm="ngForm">
+      <div class="table-row" *ngFor="let row of tableRows; index as i">
+        <mat-form-field class="table-form-field auto-width">
+          <mat-label>Elevation (Y1)</mat-label>
+          <input matInput type="number" min="0" required
+                [ngModel]="row.y1" name="{{ i }}-y1" (ngModelChange)="updateRowY1(i, $event)" />
+        </mat-form-field>
+        <mat-form-field class="table-form-field auto-width">
+          <mat-label>Elevation (Y2)</mat-label>
+          <input matInput type="number" min="0" required
+                [ngModel]="row.y2" name="{{ i }}-y2" (ngModelChange)="updateRowY2(i, $event)" />
+        </mat-form-field>
+        <mat-form-field class="table-form-field auto-width">
+          <mat-label>Length (X)</mat-label>
+          <input matInput type="number" min="0" required
+                [ngModel]="row.x" name="{{ i }}-x" (ngModelChange)="updateRowX(i, $event)" />
+        </mat-form-field>
+        <mat-form-field class="table-form-field auto-width">
+          <mat-label>Slope</mat-label>
+          <input matInput type="number" required
+                [ngModel]="row.slope" name="{{ i }}-slope" (ngModelChange)="updateRowSlope(i, $event)" />
+        </mat-form-field>
+        <button class="delete-button" mat-icon-button color="warn" *ngIf="this.tableRows.length > 1"
+                (click)="deleteRow(i)" matTooltip="Delete row">
+          <mat-icon>remove</mat-icon>
+        </button>
+      </div>
+    </form>
+    <button mat-raised-button type="button" color="accent" [disabled]="tableForm.invalid"
+            (click)="addRow()">Add row</button>
+    <button mat-button id="reset-button" type="button" (click)="reset()">Reset</button>
+  </div>
+</div>
