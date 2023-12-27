@@ -2,9 +2,9 @@
   <div class="instruction-text">
     <p>
       Enter elevation, length, and slope in the fields below.
-      Editing the length will recalculate the slope.
-      Editing the slope will recalculate the length.
-      Editing an elevation will recalculate the slope and update the previous or next elevation value accordingly.
+      Editing the elevation will recalculate the slope value.
+      Editing the length will recalculate the Y2 elevation value unless the slope is empty.
+      Editing the slope will recalculate the Y2 elevation value unless the length is empty.
     </p>
   </div>
   <div id="totals-container">
@@ -24,17 +24,17 @@
       <div class="table-row" *ngFor="let row of tableRows; index as i">
         <mat-form-field class="table-form-field auto-width">
           <mat-label>Elevation (Y1)</mat-label>
-          <input matInput type="number" min="0" required
+          <input matInput type="number" required
                 [ngModel]="row.y1" name="{{ i }}-y1" (ngModelChange)="updateRowY1(i, $event)" />
         </mat-form-field>
         <mat-form-field class="table-form-field auto-width">
           <mat-label>Elevation (Y2)</mat-label>
-          <input matInput type="number" min="0" required
+          <input matInput type="number" required
                 [ngModel]="row.y2" name="{{ i }}-y2" (ngModelChange)="updateRowY2(i, $event)" />
         </mat-form-field>
         <mat-form-field class="table-form-field auto-width">
           <mat-label>Length (X)</mat-label>
-          <input matInput type="number" min="0" required
+          <input matInput type="number" required
                 [ngModel]="row.x" name="{{ i }}-x" (ngModelChange)="updateRowX(i, $event)" />
         </mat-form-field>
         <mat-form-field class="table-form-field auto-width">

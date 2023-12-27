@@ -54,18 +54,46 @@ export class SteppedSlopeComponent {
     this.updateTotals();
   }
 
-  // When a row's length is updated, change its slope value
+  // When a row's length is updated, change its Y2 value unless the slope is empty
   updateRowX(index: number, newValue: number) {
     this.tableRows[index].x = Number(newValue);
-    this.tableRows[index].calculateSlope();
+
+    // If slope is not empty, calculate the Y2 value
+    if (this.tableRows[index].slope) {
+      this.tableRows[index].calculateY2();
+
+      // Propagate change to next row
+      if (index < this.tableRows.length - 1) {
+        this.tableRows[index + 1].y1 = this.tableRows[index].y2;
+        this.tableRows[index + 1].calculateSlope();
+      }
+
+    // If slope is empty, calculate the slope value
+    } else {
+      this.tableRows[index].calculateSlope();
+    }
 
     this.updateTotals();
   }
 
-  // When a row's slope is updated, change its length value
+  // When a row's slope is updated, change its Y2 value unless the length is empty
   updateRowSlope(index: number, newValue: number) {
     this.tableRows[index].slope = Number(newValue);
-    this.tableRows[index].calculateX();
+
+    // If length is not empty, calculate the Y2 value
+    if (this.tableRows[index].x) {
+      this.tableRows[index].calculateY2();
+
+      // Propagate change to next row
+      if (index < this.tableRows.length - 1) {
+        this.tableRows[index + 1].y1 = this.tableRows[index].y2;
+        this.tableRows[index + 1].calculateSlope();
+      }
+
+    // If length is empty, calculate the length value
+    } else {
+      this.tableRows[index].calculateX();
+    }
 
     this.updateTotals();
   }
