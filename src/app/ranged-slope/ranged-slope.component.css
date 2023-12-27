@@ -1,12 +1,3 @@
-#instruction-text {
-  padding: 16px;
-  margin-bottom: 8px;
-}
-  
-#instruction-text p {
-  margin-bottom: 8px;
-}
-  
 #inputs-container {
   display: flex;
   width: 100%;

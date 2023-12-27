@@ -9,9 +9,9 @@ import { SteppedSlopeRow } from '../models/stepped-slope-row.models';
   styleUrls: ['./stepped-slope.component.css']
 })
 export class SteppedSlopeComponent {
-  totalY1: number = 0;
-  totalY2: number = 0;
+  totalY: number = 0;
   totalX: number = 0;
+  totalSlope: number = 0;
   tableRows: SteppedSlopeRow[] = [];
 
   @ViewChild('tableForm') tableForm?: NgForm;
@@ -26,6 +26,7 @@ export class SteppedSlopeComponent {
     this.updateTotals(true);
   }
 
+  // When a row's Y1 height is updated, change its slope value
   updateRowY1(index: number, newValue: number) {
     this.tableRows[index].y1 = Number(newValue);
     this.tableRows[index].calculateSlope();
@@ -39,6 +40,7 @@ export class SteppedSlopeComponent {
     this.updateTotals();
   }
 
+  // When a row's Y2 height is updated, change its slope value
   updateRowY2(index: number, newValue: number) {
     this.tableRows[index].y2 = Number(newValue);
     this.tableRows[index].calculateSlope();
@@ -60,7 +62,7 @@ export class SteppedSlopeComponent {
     this.updateTotals();
   }
 
-  // When a row's slope is updated, change its x value
+  // When a row's slope is updated, change its length value
   updateRowSlope(index: number, newValue: number) {
     this.tableRows[index].slope = Number(newValue);
     this.tableRows[index].calculateX();
@@ -68,7 +70,7 @@ export class SteppedSlopeComponent {
     this.updateTotals();
   }
 
-  // When adding a row, prepopulate values based on last row
+  // When adding a row, pre-populate values based on last row
   addRow() {
     const lastIndex = this.tableRows.length - 1;
     const y1 = this.tableRows[lastIndex].y2!;
@@ -81,6 +83,7 @@ export class SteppedSlopeComponent {
     this.updateTotals();
   }
 
+  // When deleting a row, update next row to cover gap
   deleteRow(index: number) {
     const lastIndex = this.tableRows.length - 1;
     const row = this.tableRows[index];
@@ -98,11 +101,13 @@ export class SteppedSlopeComponent {
 
   updateTotals(init: boolean = false) {
     const lastIndex = this.tableRows.length - 1;
-    this.totalY1 = this.tableRows[0].y1 || 0;
-    this.totalY2 = this.tableRows[lastIndex].y2 || 0;
+    const totalY1 = this.tableRows[0].y1 || 0;
+    const totalY2 = this.tableRows[lastIndex].y2 || 0;
+    this.totalY = Math.abs(totalY2 - totalY1);
     this.totalX = this.tableRows.reduce((accumulator: number, currentValue: SteppedSlopeRow) => {
       return accumulator + (currentValue.x || 0);
     }, 0);
+    this.totalSlope = (this.totalY === 0 || this.totalX === 0) ? 0 : this.totalY / this.totalX;
 
     if (!init) {
       // Use timeout to ensure form has rendered and form control state updates immediately

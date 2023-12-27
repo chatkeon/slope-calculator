@@ -19,3 +19,12 @@ a:hover[href], a:visited[href] {
 .auto-width .mat-mdc-form-field-infix {
     width: auto !important;
 }
+
+.instruction-text {
+  padding: 16px;
+  margin-bottom: 8px;
+}
+  
+.instruction-text p {
+  margin-bottom: 8px;
+}

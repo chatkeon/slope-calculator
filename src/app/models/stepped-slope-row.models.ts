@@ -17,6 +17,13 @@ export class SteppedSlopeRow {
     }
   }
 
+  calculateY2() {
+    if (this.isValid(this.y1) && this.isValid(this.x) && this.isValid(this.slope)) {
+      const deltaY = this.x! * this.slope!;
+      this.y2 = this.y1! + deltaY;
+    }
+  }
+
   calculateSlope() {
     if (this.isValid(this.y2) && this.isValid(this.y1) && this.isValid(this.x)) {
       this.slope = (this.y2! - this.y1!) / this.x!;

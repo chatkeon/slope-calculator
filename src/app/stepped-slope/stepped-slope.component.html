@@ -1,13 +1,21 @@
 <div id="stepped-slope-container">
+  <div class="instruction-text">
+    <p>
+      Enter elevation, length, and slope in the fields below.
+      Editing the length will recalculate the slope.
+      Editing the slope will recalculate the length.
+      Editing an elevation will recalculate the slope and update the previous or next elevation value accordingly.
+    </p>
+  </div>
   <div id="totals-container">
     <div class="total-text">
-      <p><b>Elevation (Y1):</b> {{ totalY1 }}</p>
+      <p><b>Total Elevation (Y):</b> {{ totalY }}</p>
     </div>
     <div class="total-text">
-      <p><b>Elevation (Y2):</b> {{ totalY2 }}</p>
+      <p><b>Total Length (X):</b> {{ totalX }}</p>
     </div>
     <div class="total-text">
-      <p><b>Length (X):</b> {{ totalX }}</p>
+      <p><b>Total Slope:</b> {{ totalSlope * 100 }}%</p>
     </div>
   </div>
 
