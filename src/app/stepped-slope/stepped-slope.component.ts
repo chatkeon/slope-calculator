@@ -103,7 +103,7 @@ export class SteppedSlopeComponent {
     const lastIndex = this.tableRows.length - 1;
     const y1 = this.tableRows[lastIndex].y2!;
     const x = this.tableRows[lastIndex].x!;
-    const deltaY = this.tableRows[lastIndex].slope! * this.tableRows[lastIndex].x!;
+    const deltaY = (this.tableRows[lastIndex].slope! / 100) * this.tableRows[lastIndex].x!;
     const y2 = y1 + deltaY;
     const newRow = new SteppedSlopeRow(y1, y2, x, this.tableRows[lastIndex].slope);
     this.tableRows.push(newRow);

@@ -38,7 +38,7 @@
                 [ngModel]="row.x" name="{{ i }}-x" (ngModelChange)="updateRowX(i, $event)" />
         </mat-form-field>
         <mat-form-field class="table-form-field auto-width">
-          <mat-label>Slope</mat-label>
+          <mat-label>Slope (%)</mat-label>
           <input matInput type="number" required
                 [ngModel]="row.slope" name="{{ i }}-slope" (ngModelChange)="updateRowSlope(i, $event)" />
         </mat-form-field>
