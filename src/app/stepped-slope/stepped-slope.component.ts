@@ -28,74 +28,83 @@ export class SteppedSlopeComponent {
 
   // When a row's Y1 height is updated, change its slope value
   updateRowY1(index: number, newValue: number) {
-    this.tableRows[index].y1 = Number(newValue);
-    this.tableRows[index].calculateSlope();
+    if (newValue !== null) {
+      this.tableRows[index].y1 = Number(newValue);
+      this.tableRows[index].calculateSlope();
 
-    // Propagate change to previous row
-    if (index > 0) {
-      this.tableRows[index - 1].y2 = Number(newValue);
-      this.tableRows[index - 1].calculateSlope();
+      // Propagate change to previous row
+      if (index > 0) {
+        this.tableRows[index - 1].y2 = Number(newValue);
+        this.tableRows[index - 1].calculateSlope();
+      }
+
+      this.updateTotals();
     }
-
-    this.updateTotals();
   }
 
   // When a row's Y2 height is updated, change its slope value
   updateRowY2(index: number, newValue: number) {
-    this.tableRows[index].y2 = Number(newValue);
-    this.tableRows[index].calculateSlope();
+    if (newValue !== null) {
+      this.tableRows[index].y2 = Number(newValue);
+      this.tableRows[index].calculateSlope();
 
-    // Propagate change to next row
-    if (index < this.tableRows.length - 1) {
-      this.tableRows[index + 1].y1 = Number(newValue);
-      this.tableRows[index + 1].calculateSlope();
+      // Propagate change to next row
+      if (index < this.tableRows.length - 1) {
+        this.tableRows[index + 1].y1 = Number(newValue);
+        this.tableRows[index + 1].calculateSlope();
+      }
+
+      this.updateTotals();
     }
-
-    this.updateTotals();
   }
 
   // When a row's length is updated, change its Y2 value unless the slope is empty
   updateRowX(index: number, newValue: number) {
-    this.tableRows[index].x = Number(newValue);
+    if (newValue !== null) {
+      this.tableRows[index].x = Number(newValue);
+      console.log(Number(newValue));
 
-    // If slope is not empty, calculate the Y2 value
-    if (this.tableRows[index].slope) {
-      this.tableRows[index].calculateY2();
+      // If slope is not empty, calculate the Y2 value
+      if (this.tableRows[index].slope) {
+        this.tableRows[index].calculateY2();
 
-      // Propagate change to next row
-      if (index < this.tableRows.length - 1) {
-        this.tableRows[index + 1].y1 = this.tableRows[index].y2;
-        this.tableRows[index + 1].calculateSlope();
+        // Propagate change to next row
+        if (index < this.tableRows.length - 1) {
+          this.tableRows[index + 1].y1 = this.tableRows[index].y2;
+          this.tableRows[index + 1].calculateSlope();
+        }
+
+      // If slope is empty, calculate the slope value
+      } else {
+        this.tableRows[index].calculateSlope();
       }
 
-    // If slope is empty, calculate the slope value
-    } else {
-      this.tableRows[index].calculateSlope();
+      this.updateTotals();
     }
-
-    this.updateTotals();
   }
 
   // When a row's slope is updated, change its Y2 value unless the length is empty
   updateRowSlope(index: number, newValue: number) {
-    this.tableRows[index].slope = Number(newValue);
+    if (newValue !== null) {
+      this.tableRows[index].slope = Number(newValue);
 
-    // If length is not empty, calculate the Y2 value
-    if (this.tableRows[index].x) {
-      this.tableRows[index].calculateY2();
+      // If length is not empty, calculate the Y2 value
+      if (this.tableRows[index].x) {
+        this.tableRows[index].calculateY2();
 
-      // Propagate change to next row
-      if (index < this.tableRows.length - 1) {
-        this.tableRows[index + 1].y1 = this.tableRows[index].y2;
-        this.tableRows[index + 1].calculateSlope();
+        // Propagate change to next row
+        if (index < this.tableRows.length - 1) {
+          this.tableRows[index + 1].y1 = this.tableRows[index].y2;
+          this.tableRows[index + 1].calculateSlope();
+        }
+
+      // If length is empty, calculate the length value
+      } else {
+        this.tableRows[index].calculateX();
       }
 
-    // If length is empty, calculate the length value
-    } else {
-      this.tableRows[index].calculateX();
+      this.updateTotals();
     }
-
-    this.updateTotals();
   }
 
   // When adding a row, pre-populate values based on last row
